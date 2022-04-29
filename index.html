@@ -6,10 +6,10 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta
-            name="description"
-            content="Documentation for the Kittn API"
+            name="Platforms API Documentation"
+            content="Documentation for the Check Investor Status API"
         >
-    <title>API Reference</title>
+    <title>Platforms API Reference</title>
 
     <style media="screen">
       .highlight table td { padding: 5px; }
@@ -295,7 +295,7 @@
     </script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -303,13 +303,7 @@
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="images/logo-1e815a84.png" class="logo" alt="" />
-        <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
-        </div>
+      <img src="images/logo-d9651519.png" class="logo" alt="" />
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
         </div>
@@ -317,30 +311,89 @@
       <ul id="toc" class="toc-list-h1">
           <li>
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#why-use-an-integration" class="toc-h2 toc-link" data-title="Why use an integration?">Why use an integration?</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#getting-started" class="toc-h1 toc-link" data-title="Getting Started">Getting Started</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#request-a-platform-account" class="toc-h2 toc-link" data-title="Request a Platform Account">Request a Platform Account</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#the-investor-portal" class="toc-h1 toc-link" data-title="The Investor Portal">The Investor Portal</a>
+          </li>
+          <li>
+            <a href="#data-models" class="toc-h1 toc-link" data-title="Data Models">Data Models</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
+                    <a href="#investor-model" class="toc-h2 toc-link" data-title="Investor Model">Investor Model</a>
                   </li>
                   <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
+                    <a href="#status-model" class="toc-h2 toc-link" data-title="Status Model">Status Model</a>
                   </li>
                   <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#accreditation-model" class="toc-h2 toc-link" data-title="Accreditation Model">Accreditation Model</a>
+                  </li>
+                  <li>
+                    <a href="#event-model" class="toc-h2 toc-link" data-title="Event Model">Event Model</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+            <a href="#api-endpoints" class="toc-h1 toc-link" data-title="API Endpoints">API Endpoints</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#register-an-investor" class="toc-h2 toc-link" data-title="Register an Investor">Register an Investor</a>
+                  </li>
+                  <li>
+                    <a href="#query-your-investors" class="toc-h2 toc-link" data-title="Query your Investors">Query your Investors</a>
+                  </li>
+                  <li>
+                    <a href="#convenience-endpoints" class="toc-h2 toc-link" data-title="Convenience Endpoints">Convenience Endpoints</a>
+                  </li>
+                  <li>
+                    <a href="#download-an-accreditation-letter" class="toc-h2 toc-link" data-title="Download an accreditation letter">Download an accreditation letter</a>
+                  </li>
+                  <li>
+                    <a href="#admin-and-event-endpoints" class="toc-h2 toc-link" data-title="Admin and Event Endpoints">Admin and Event Endpoints</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#integration-example" class="toc-h1 toc-link" data-title="Integration Example">Integration Example</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#providing-your-users-with-a-quot-accreditation-portal-quot-button" class="toc-h2 toc-link" data-title="Providing your users with a "Accreditation Portal" Button">Providing your users with a "Accreditation Portal" Button</a>
+                  </li>
+                  <li>
+                    <a href="#1-your-user-opens-a-page-on-your-front-end-webapp" class="toc-h2 toc-link" data-title="1. Your user opens a page on your front-end webapp">1. Your user opens a page on your front-end webapp</a>
+                  </li>
+                  <li>
+                    <a href="#2-your-webapp-requests-a-portal-link-from-your-web-server" class="toc-h2 toc-link" data-title="2. Your webapp requests a portal-link from your web server">2. Your webapp requests a portal-link from your web server</a>
+                  </li>
+                  <li>
+                    <a href="#3-your-web-server-hits-the-platform-investors-register-endpoint-of-the-check-investor-status-api" class="toc-h2 toc-link" data-title="3. Your web server hits the /platform/investors/register endpoint of the Check Investor Status API">3. Your web server hits the <code>/platform/investors/register</code> endpoint of the Check Investor Status API</a>
+                  </li>
+                  <li>
+                    <a href="#4-your-webapp-uses-the-portal-link-as-the-href-in-the-rendered-button" class="toc-h2 toc-link" data-title="4. Your webapp uses the portal-link as the href in the rendered button.">4. Your webapp uses the portal-link as the <code>href</code> in the rendered button.</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#documentation-todos" class="toc-h1 toc-link" data-title="Documentation TODOs">Documentation TODOs</a>
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
+            <li><a href=''>Sign Up for a Developer Key</a></li>
             <li><a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
@@ -348,173 +401,473 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>Check Investor Status provides our platform clients with an Accreditations API that allows them to access information about their investors&#39; and sponsors&#39; accreditation process.</p>
 
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>There are 3 important parties:</p>
 
-<p>This example API documentation page was created with <a href="https://github.com/slatedocs/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
+<ul>
+<li>A <strong>platform</strong> is a website, company, or service that allows one or more sponsors to list investments to many investors. Common examples of platforms include 3rd-party administrators, crowdfunding companies, and investment listing services.</li>
+<li>A <strong>sponsor</strong> is a business that is fundraising from investors. This is interchangeable with the &quot;issuer&quot; of the security. Examples of this are real estate companies or startups in a fundraising round.</li>
+<li>An <strong>investor</strong> is a legal or natural person who is investing with a sponsor (often through a platform).</li>
+</ul>
+
+<p>When a sponsor is raising funds under Regulation D Rule 506c, they are required to undergo &quot;reasonable steps&quot; to verify that each of their investors meet the legal definition of an accredited investor.</p>
+
+<p><strong>Check Investor Status</strong> verifies the accreditation status of investors. We help investors determine how they qualify and upload the proper documentation. We then have a licensed security attorney from our legal team review each investor&#39;s documentation, and issue a &quot;Certificate of Accreditation&quot; for that investor.</p>
+<h2 id='why-use-an-integration'>Why use an integration?</h2>
+<p>An integrated platform experience allows you and your sponsors to automate, oversee, and manage your accreditation workflow.</p>
+
+<p><strong>Integrating our accreditation product directly into your platform means:</strong></p>
+
+<ul>
+<li>Less friction for investors and less drop-off due to accreditation requirements.</li>
+<li>Less room for potentially-costly accreditation errors.</li>
+<li>Reduced cognitive overhead and manual work for your customer service, investor relations, and legal teams.</li>
+<li>Decreased spending spending on general or outside council.</li>
+</ul>
+
+<p><strong>Highlights of the integration experience:</strong></p>
+
+<ul>
+<li><strong>Quick set up</strong> – You can start your investors getting accredited by writing a API endpoint on your server, and then adding a button to your platform.</li>
+<li><strong>No Investor Registration</strong> – You use our API to register your users as investors with Check Investor Status. This means your investors never have to create a Check Investor Status account. </li>
+<li><strong>No Investor Data Re-entry</strong> – You can pre-fill investor information when you register (email address, type of legal entity, legal name) them. That way, investors don&#39;t need to re-enter data you already have.</li>
+<li><strong>Automated Follow-up and Re-Review Processes</strong> – Did an investor make a mistake in their documentation? Have they started but not finished their process? We&#39;ll followup with them and re-review when they fix their documentation.</li>
+<li><strong>Programmatic Access to Accreditation Info</strong> – You can check the status of your investors as they proceed through the platform, or even download a PDF of the accreditation letter we issue for your accredited investors.</li>
+<li><strong>Ongoing Support and Development</strong> – We&#39;re in active development of this product. Have a feature request? Not sure how something works? Just ask – if we haven&#39;t built it already, we can likely add support for it soon.</li>
+</ul>
+<h1 id='getting-started'>Getting Started</h1>
+<p>There are only 3 steps to setting up with Check Investor Status.</p>
+<h2 id='request-a-platform-account'>Request a Platform Account</h2>
+<p>Contact <a href="mailto:carter@checkinvestorstatus.com">carter@checkinvestorstatus.com</a> to set up a platform integration account.</p>
+
+<p>Once we&#39;ve set up your platform account, you&#39;ll be given a <strong>Platform API Secret Key</strong> that you can use to access our platform API functions programmatically.</p>
+
+<p><strong>Not sure how to proceed?</strong></p>
+
+<p>If you have a use case and you&#39;re not sure if our API supports it, reach out to <a href="mailto:carter@checkinvestorstatus.com">Carter</a>. He can help advise your technical team on how to make the Check Investor Status platform integration work for you.</p>
 <h1 id='authentication'>Authentication</h1>
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<p>When you or your sponsors access accreditation data via the Accreditations API, you&#39;ll include your <strong>Platform API Secret Key</strong> as the request header <code>X-API-ACCESS</code> .</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-</code></pre></div>
-<blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>Authorization: meowmeowmeow</code></p>
+<p>Your <strong>Platform API Secret Key</strong>  allows you to programmatically register investors, query investors&#39; accreditation statuses, and more.</p>
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You should treat your secret key as a master password. Anyone with it can access sensitive financial data about all of your investors.
+
+You should never include your secret key in plaintext as code. For this reason, you should never hit this API from any user-facing application (EG a website or webapp). You should hit these endpoints from your own server, and should store your secret key as an environment variable in the server's runtime environment.
+
+Check Investor Status is not liable for unauthorized access to the platform via your secret key.
 </aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h1 id='the-investor-portal'>The Investor Portal</h1>
+<p>We have a platform-specific User Experience built out that streamlines the process of investors uploading their documentation.</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<p>We dynamically generate secure links for investors to access their investor portals. These &quot;portal links&quot; allow you to provide your investors persistent access to their portal, without having them create accounts with Check Investor Status.</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
+<p>Note that, for security purposes, &quot;portal Links&quot; are expired and regenerated every time you look up a an investor with our API. </p>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">();</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
+<p>It is not recommended to store a portal link in persistent storage (EG on your database). Instead, we highly recommend storing the investor&#39;s <code>investorId</code> on your database&#39;s representation of your user. With this, you can dynamically request a new portal link for the user when rendering the &quot;Get Accredited&quot; button.</p>
+<h1 id='data-models'>Data Models</h1><h2 id='investor-model'>Investor Model</h2><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="c1">// Investor Identifiers</span><span class="w">
+    </span><span class="na">investorId</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;a</span><span class="w"> </span><span class="err">unique</span><span class="w"> </span><span class="err">generated</span><span class="w"> </span><span class="err">string</span><span class="w"> </span><span class="err">identifying</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">investor&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">creationDate</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Date</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">account</span><span class="w"> </span><span class="err">was</span><span class="w"> </span><span class="err">created&gt;</span><span class="p">,</span><span class="w">
+
+    </span><span class="c1">// Investor Information</span><span class="w">
+    </span><span class="na">email</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;the</span><span class="w"> </span><span class="err">email</span><span class="w"> </span><span class="err">address</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">reaching</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">investor&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">legalName</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;the</span><span class="w"> </span><span class="err">legal</span><span class="w"> </span><span class="err">name</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">investor&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">investorType</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;the</span><span class="w"> </span><span class="err">selected</span><span class="w"> </span><span class="err">entity</span><span class="w"> </span><span class="err">type</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">investor&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">verificationMethod</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;the</span><span class="w"> </span><span class="err">selected</span><span class="w"> </span><span class="err">verification</span><span class="w"> </span><span class="err">method</span><span class="w"> </span><span class="err">(see</span><span class="w"> </span><span class="err">below)&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">metadataTag</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;optional</span><span class="w"> </span><span class="err">platform-supplied</span><span class="w"> </span><span class="err">metadata</span><span class="w"> </span><span class="err">stored</span><span class="w"> </span><span class="err">on</span><span class="w"> </span><span class="err">investor&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">dependentOnInvestors</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="err">&lt;investorId</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">an</span><span class="w"> </span><span class="err">investor</span><span class="w"> </span><span class="err">whose</span><span class="w"> </span><span class="err">accreditation</span><span class="w"> </span><span class="err">impacts</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">investor's&gt;</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+
+    </span><span class="c1">// Status and Accreditation information</span><span class="w">
+    </span><span class="na">status</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;a</span><span class="w"> </span><span class="err">status</span><span class="w"> </span><span class="err">object</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">user</span><span class="w"> </span><span class="err">(see</span><span class="w"> </span><span class="err">below)&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">accreditations</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&lt;All</span><span class="w"> </span><span class="err">accreditation</span><span class="w"> </span><span class="err">objects</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">user</span><span class="w"> </span><span class="err">(see</span><span class="w"> </span><span class="err">below)&gt;</span><span class="p">],</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint retrieves all kittens.</p>
+<p>An investor represents a single account in our API that can be an accredited investor. One person in your platform (eg. John Smith) may have multiple &quot;investor accounts&quot; at once – for example, if they are an individual investor, but also manage a company that invests.</p>
+
+<p>An investor may be have multiple recorded accreditations. In fact, because accreditations expire, most repeat investors will have multiple accreditations associated with them.</p>
+
+<p><strong>Platform-supplied fields (Pre-filled information)</strong></p>
+
+<p>Our API allows platforms to automatically pre-fill the <code>email</code>,  <code>legalName</code>, and <code>investorType</code> of their investors&#39; accounts. However, the combination of those three fields must be unique – no two investor accounts can have the same combination of <code>(email, legalName, investorType)</code>.</p>
+
+<p>An investor model has the following structure:</p>
+
+<p><strong><code>investorId</code></strong></p>
+
+<p>This is the unique identifier for an investor that you register with us.</p>
+
+<p>We recommend that after you create an investor, you store their <code>investorId</code> with that account in your database. This can be especially helpful a single person (&quot;Joe Smith&quot;) can have multiple investment accounts on your platform (EG &quot;Joe Smith, the individual investor&quot;, as well as &quot;Joe Smith, the signatory for Smith Family Offices&quot;).</p>
+
+<p><strong><code>dateCreated</code></strong></p>
+
+<p>Date when the investor&#39;s Check Investor Status investor account was created.</p>
+
+<p><strong><code>email</code></strong></p>
+
+<p>The email address we will use to contact the user. They are automatically emailed when their accreditation status changes, or if we need updated or additional documentation.</p>
+
+<p><strong><code>legalName</code></strong>
+Legal Names must correspond exactly with the legal name that appears on an investor&#39;s provided documentation. </p>
+
+<p>For example:</p>
+
+<ul>
+<li>An individual investor may have the legal name &quot;Jane Doe&quot;</li>
+<li>A married couple may have the legal name &quot;Jane Doe &amp; John Doe&quot;</li>
+<li>An entity may have the legal name &quot;Doe Family Investments, LLC&quot;</li>
+<li>A trust may have the legal name &quot;Doe Family Trust&quot;</li>
+</ul>
+
+<p><strong><code>investorType</code></strong></p>
+
+<p>This represents the type of person or entity under which the investor is acting.</p>
+
+<p>Investor type must be one of the following values:</p>
+
+<ul>
+<li><strong><code>INDIVIDUAL</code></strong> – a natural person investing as themself.</li>
+<li><strong><code>JOINT</code></strong> – a married couple or spousal equivalent investing together.</li>
+<li><strong><code>ENTITY</code></strong> – a business entity investing as a legal person.</li>
+<li><strong><code>TRUST</code></strong> – a trust investing as a legal person.</li>
+</ul>
+
+<p><strong><code>verificationMethod</code></strong></p>
+
+<p>Verification Method represents the qualification under which the investor qualifies as an &quot;accredited investor&quot;. To learn more about the specifics of how this works, request a copy of our Legal and Compliance documentation.</p>
+
+<p>The following are the possible values of <code>verificationMethod</code>:</p>
+
+<ul>
+<li><strong><code>LETTER</code></strong> - Individual qualified by letter from qualified professional</li>
+<li><strong><code>INCOME</code></strong> - Individual qualified by annual income</li>
+<li><strong><code>FINANCE_PROFESSIONAL</code></strong> - Individual qualified by professional financial qualifications</li>
+<li><strong><code>DIRECTOR</code></strong> - Individual qualified as a director at a sponsor (Accreditation scoped to the sponsor level – See notes below).</li>
+<li><strong><code>EMPLOYEE</code></strong> - Individual qualified as a knowledgeable employee for a deal (Accreditation scoped to the deal level – See notes below).</li>
+<li><strong><code>NET_WORTH</code></strong> - Individual qualified by their net worth</li>
+<li><strong><code>NONE_OF_THE_ABOVE</code></strong> - Individual qualified by extenuating circumstance (Rare – See notes below)</li>
+<li><strong><code>JOINT_LETTER</code></strong> - Spousal couple qualified by letter from qualified professional</li>
+<li><strong><code>JOINT_INCOME</code></strong> - Spousal couple qualified by annual income</li>
+<li><strong><code>JOINT_NET_WORTH</code></strong> - Spousal couple qualified by net worth</li>
+<li><strong><code>JOINT_NONE_OF_THE_ABOVE</code></strong> - Spousal couple qualified by extenuating circumstance (Rare – see notes below)</li>
+<li><strong><code>ENTITY_LETTER</code></strong> - Entity qualified by letter from qualified professional</li>
+<li><strong><code>ENTITY_NET_WORTH</code></strong> - Entity qualified by assets under management</li>
+<li><strong><code>ENTITY_STATUS</code></strong> - Entity qualified by special regulatory status</li>
+<li><strong><code>ENTITY_SPECIAL</code></strong> - Entity qualified by combination of status and assets under management</li>
+<li><strong><code>ENTITY_FIDUCIARY_EBP</code></strong> - Entity qualified as fiduciary-led employee benefit program</li>
+<li><strong><code>ENTITY_SELF_DIRECTED_EBP</code></strong> - Entity qualified as self-directed Employee Benefit Plan</li>
+<li><strong><code>ENTITY_ACCREDITED_INDIVIDUALS</code></strong> - Entity qualified as composed of solely accredited equity owners</li>
+<li><strong><code>ENTITY_NONE_OF_THE_ABOVE</code></strong> - Entity qualified by extenuating circumstances (Rare – see notes below)</li>
+<li><strong><code>TRUST_LETTER</code></strong> - Trust qualified by letter from qualified professional</li>
+<li><strong><code>TRUST_NET_WORTH</code></strong> - Trust qualified by assets under management</li>
+<li><strong><code>TRUST_ACCREDITED_INDIVIDUALS</code></strong> - Trust qualified as being composed solely of accredited &quot;Equity Owners&quot; (SEC&#39;s definition here is wonky, see Regulatory Compliance documentation for more details)</li>
+<li><strong><code>TRUST_NONE_OF_THE_ABOVE</code></strong> - Trust qualified by extenuating circumstances (Rare – see notes below)</li>
+</ul>
+
+<p><strong><code>metadataTag</code></strong></p>
+
+<p>This is a metadata string you can store on the investor that will be returned with the investor, as well as with billing events associated with them.</p>
+
+<p>The most common use case is storing a sponsor identifier, so that you can track which sponsors to bill for which events. EG, if an investor is clicks &quot;Get Accredited&quot; on the invest page for a particular investment, you may add an identifier for that investment or sponsor as the <code>metadataTag</code> for that user.</p>
+
+<p>This field is managed entirely by the platform – we provide you with the ability to set and update this field, but its use and management is up to you. </p>
+
+<p><strong><code>dependentOnInvestors</code></strong></p>
+
+<p>This is an array of  <code>investorId</code>s for investors whose accreditations this (the parent investor) is waiting on. </p>
+
+<p>For example, if this investor is an Entity or Trust who is accredited by nature of each of their entity owners being accredited, this list would have the investorIds of each of the investors being waited on.</p>
+<h2 id='status-model'>Status Model</h2><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="na">status</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;A</span><span class="w"> </span><span class="err">Status</span><span class="w"> </span><span class="err">Value</span><span class="w"> </span><span class="err">(see</span><span class="w"> </span><span class="err">below)</span><span class="p">,</span><span class="w">
+    </span><span class="na">expiration</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Date</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">status</span><span class="w"> </span><span class="err">expires</span><span class="p">,</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="kc">null</span><span class="err">&gt;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Status Model Examples:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="c1">// An in-progress investor's status</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="na">status</span><span class="p">:</span><span class="w"> </span><span class="err">'ACTION_NEEDED'</span><span class="p">,</span><span class="w">
+    </span><span class="na">expiration</span><span class="p">:</span><span class="w"> </span><span class="err">'</span><span class="mi">2022-03-20</span><span class="na">T07</span><span class="p">:</span><span class="na">00</span><span class="p">:</span><span class="mi">0</span><span class="mf">0.000</span><span class="err">Z'</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c1">// A currently-accredited investor's status</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="na">status</span><span class="p">:</span><span class="w"> </span><span class="err">'VERIFIED'</span><span class="p">,</span><span class="w">
+    </span><span class="na">expiration</span><span class="p">:</span><span class="w"> </span><span class="err">'</span><span class="mi">2022-05-20</span><span class="na">T07</span><span class="p">:</span><span class="na">00</span><span class="p">:</span><span class="mi">0</span><span class="mf">0.000</span><span class="err">Z'</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c1">// An investor's status whose application is in review</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="na">status</span><span class="p">:</span><span class="w"> </span><span class="err">'IN_REVIEW'</span><span class="p">,</span><span class="w">
+    </span><span class="na">expiration</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">  </span><span class="c1">// Legal review doesn't expire</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The status model represents where the investor currently is in their accreditation process.</p>
+
+<p><strong><code>status</code></strong> </p>
+
+<p>Where the investor is in the accreditation pipeline. Possible values are:</p>
+
+<ul>
+<li><code>NOT_FOUND</code> – We did not find an investor associated with that email in our records.</li>
+<li><code>ACTION_NEEDED</code> – The investor has started the accreditation process but has not completed it.</li>
+<li><code>IN_REVIEW</code> – The investor has uploaded documentation that is under legal review by our team.</li>
+<li><code>MORE_INFO</code> – We&#39;ve reached out to the investor for more information or additional documentation.</li>
+<li><code>WAITING</code> – The investor accreditation is currently blocked on other accreditations (EG an entity waiting on the accreditations of its equity owners)</li>
+<li><code>ACCREDITED</code> – The investor has a current, valid accreditation. </li>
+<li><code>EXPIRED</code> – The investor has a current, valid accreditation. </li>
+<li><code>FAILED</code> – We have determined that we are unable to verify this investor&#39;s accreditation</li>
+</ul>
+
+<p><strong><code>expiration</code></strong> </p>
+
+<p>If the investor is currently accredited, this field will contain the date that the current accreditation expires. </p>
+
+<p>If the investor is not accredited, this field will contain the date their current status expires and their investor account is archived. Some statuses do not expire, but we can only hold information on an investor that begins an accreditation for 90 days.</p>
+<h2 id='accreditation-model'>Accreditation Model</h2><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="na">accreditationId</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;internal</span><span class="w"> </span><span class="err">identifier</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">accreditation&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">verificationMethod</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;the</span><span class="w"> </span><span class="err">selected</span><span class="w"> </span><span class="err">verification</span><span class="w"> </span><span class="err">method</span><span class="w"> </span><span class="err">(see</span><span class="w"> </span><span class="err">below)&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">dateCreated</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Date</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">creation</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">accreditation&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">expirationDate</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Date</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">letter</span><span class="w"> </span><span class="err">expires&gt;</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Accreditation Model Examples:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="c1">// A Current Accreditation</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="na">accreditationId</span><span class="p">:</span><span class="w"> </span><span class="s2">"623139b30bca64b9298bc746"</span><span class="p">,</span><span class="w">
+    </span><span class="na">verificationMethod</span><span class="p">:</span><span class="w"> </span><span class="s2">"ENTITY_NET_WORTH"</span><span class="p">,</span><span class="w">
+    </span><span class="na">dateCreated</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-03-16T01:13:23.040Z"</span><span class="p">,</span><span class="w">
+    </span><span class="na">expirationDate</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-06-14T01:13:23.040Z"</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c1">// An expired Accreditation</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="na">accreditationId</span><span class="p">:</span><span class="w"> </span><span class="s2">"61e7b43c10a0f6e3830d0512"</span><span class="p">,</span><span class="w">
+    </span><span class="na">verificationMethod</span><span class="p">:</span><span class="w"> </span><span class="s2">"FINANCIAL_PROFESSIONAL"</span><span class="p">,</span><span class="w">
+    </span><span class="na">dateCreated</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-01-19T06:48:28.761+00:00"</span><span class="p">,</span><span class="w">
+    </span><span class="na">expirationDate</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-03-04T06:13:38.761+00:00"</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The accreditation model represents an accreditation successfully completed through our platform.</p>
+
+<p><strong><code>accreditationId</code></strong></p>
+
+<p>The unique identifier for a particular accreditation. You will need this to download the PDF of the relevant accreditation letter.</p>
+
+<p><strong><code>verificationMethod</code></strong></p>
+
+<p>The method of verification used for this particular accreditation. The values are the same as the corresponding field on the investor model.</p>
+
+<p><strong><code>dateCreated</code></strong></p>
+
+<p>The date the accreditation was issued or created</p>
+
+<p><strong><code>expirationDate</code></strong></p>
+
+<p>The date this accreditation expires, and can no longer be used to verify the accredited status of the investor.</p>
+<h2 id='event-model'>Event Model</h2><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="na">date</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Date</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">creation</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">event&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">type</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;String</span><span class="w"> </span><span class="err">with</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">type</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">event</span><span class="w"> </span><span class="err">has</span><span class="w"> </span><span class="err">occurred&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">investorId</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;ID</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">investor</span><span class="w"> </span><span class="err">who</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">event</span><span class="w"> </span><span class="err">pertains</span><span class="w"> </span><span class="err">to&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">metadataTag</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Any</span><span class="w"> </span><span class="err">metadata</span><span class="w"> </span><span class="err">stored</span><span class="w"> </span><span class="err">on</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">investor&gt;</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This represents an accreditation event that has occurred. We log all events, and deliver them to you via a webhook that you can configure. Generally, we send events when either:</p>
+
+<ol>
+<li> A billable event occurs, or </li>
+<li> An accreditation process is completed (successfully or not)</li>
+</ol>
+
+<p>The 3 types of events you may receive are:</p>
+
+<ul>
+<li><strong><code>BILLABLE_EVENT</code></strong> – an investor&#39;s accreditation application has moved to legal review, and their </li>
+<li><strong><code>ACCREDITATION_SUCCEEDED</code></strong> - an investor&#39;s accreditation application was approved, and an accreditation letter was issued.</li>
+<li><strong><code>ACCREDITATION_FAILED</code></strong> - an investor&#39;s accreditation application was denied, and we have determined that we cannot issue an accreditation letter.</li>
+</ul>
+
+<p>To set up your webhook receiver, use the <code>platform/admin/update-webhook-url</code> endpoint (documented below). The url provided should be able to accept </p>
+
+<p>We currently do not retry delivery on webhook events that are not delivered successfully, but you can retroactively pull a list of your events from the last month with the <code>platform/events/query</code> endpoint (documented below).</p>
+<h1 id='api-endpoints'>API Endpoints</h1>
+<p>We provide API access to read and modify your investors&#39; accreditation data programmatically.</p>
+
+<p>Some common use cases for the Accreditation API include:
+* Registering your users as Investors in our platform.
+* Adding information about accreditation data to your investors&#39; user account within your platform.
+* Checking the status of an investor&#39;s accreditation before allowing them to perform certain actions or see certain views on your platform
+* Automatically creating sponsor accounts when a new issuer joins your platform
+* Creating custom dashboards for your internal team</p>
+<h2 id='register-an-investor'>Register an Investor</h2>
+<p>To create new investors on our platform, you will use the <code>register</code> endpoint.</p>
+
+<p>This endpoint allows you to register an investor for your platform. If an investor matching the criteria you mentioned </p>
+
+<p>This endpoint also allows you to pre-fill information about the investor so that they don&#39;t need to answer redundant questions.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
+<p><code>POST /platform/investors/register</code></p>
+<h3 id='request-body-parameters'>Request Body Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Default</th>
+<th>Required</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
+<td>email</td>
 <td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>a valid email address of an investor in your platform</td>
+</tr>
+<tr>
+<td>legalName</td>
+<td>false</td>
+<td>a string containing the exact legal name of the investor in your platform</td>
+</tr>
+<tr>
+<td>investorType</td>
+<td>false</td>
+<td>a valid <code>investorType</code> value representing the legal entity the investor will be accredited as. Valid values are <code>INDIVIDUAL</code>, <code>JOINT</code>, <code>ENTITY</code>, and <code>TRUST</code>.</td>
+</tr>
+<tr>
+<td>metadataTag</td>
+<td>false</td>
+<td>any string value you want to store as metadata on the user (EG – the id of their sponsor). This value is always returned with the user, and is passed along with billing events</td>
 </tr>
 </tbody></table>
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+<h3 id='returns'>Returns</h3><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="na">new</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;</span><span class="kc">true</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">new</span><span class="w"> </span><span class="err">investor</span><span class="w"> </span><span class="err">created</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="err">otherwise&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">investor</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Investor</span><span class="w"> </span><span class="err">model</span><span class="w"> </span><span class="err">that</span><span class="w"> </span><span class="err">was</span><span class="w"> </span><span class="err">found</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">created&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">portalLink</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;An</span><span class="w"> </span><span class="err">updated</span><span class="w"> </span><span class="err">portalLink</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">investor</span><span class="w"> </span><span class="err">found&gt;</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint retrieves a specific kitten.</p>
+<p>If there is already a user matching the parameters provided, this endpoint will return that user instead of creating a new one. If there are multiple users matching the parameters provided, the endpoint will return a 400 error with the message &quot;ambiguous registration – more specificity required&quot;.</p>
+<h3 id='notes'>Notes</h3>
+<blockquote>
+<p>POST body for Joe&#39;s Entity account</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w"> 
+     </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="err">joesmith@gmail.com</span><span class="s2">",
+     "</span><span class="err">investorType</span><span class="s2">": "</span><span class="err">ENTITY</span><span class="s2">",
+     "</span><span class="err">legalName</span><span class="s2">": "</span><span class="err">Smith</span><span class="w"> </span><span class="err">Family</span><span class="w"> </span><span class="err">Investment</span><span class="p">,</span><span class="w"> </span><span class="err">LLC</span><span class="s2">" 
+}
+</span></code></pre></div>
+<blockquote>
+<p>POST body for Joe&#39;s second entity account</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="err">joesmith@gmail.com</span><span class="s2">",
+    "</span><span class="err">investorType</span><span class="s2">": "</span><span class="err">ENTITY</span><span class="s2">",
+    "</span><span class="err">legalName</span><span class="s2">": "</span><span class="err">New</span><span class="w"> </span><span class="err">Investment</span><span class="w"> </span><span class="err">Company</span><span class="p">,</span><span class="w"> </span><span class="err">Inc.</span><span class="s2">" 
+}
+</span></code></pre></div>
+<p>Although we only require an email-address for the user, we recommend that you make your query as specific as possible.</p>
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<p>For example, let&#39;s say Joe Smith has a single account on your platform associated with <code>joesmith@gmail.com</code> . With that account, he can invest either as himself, or as his family office &quot;Smith Family Investment, LLC&quot;.</p>
+
+<p>If you were to hit the registration endpoint with: <code>{ &quot;email&quot;: &quot;joesmith@gmail.com&quot; }</code> as your post body, that registration attempt already matches two investor accounts: 
+1. Their personal investor account, and 
+2. Their family office investor account. </p>
+
+<p>In this case, the endpoint would send an error so as to avoid sending back the wrong account. </p>
+
+<p>To fix this problem, you could use the following POST body to resolve any ambiguity.</p>
+
+<p>If Joe wanted to start another entity account to represent his managing a different investment company (&quot;New Investment Company, Inc.&quot;), you could register that account as shown in the post body to the right.</p>
+
+<p>Note that metadata is not included in the &quot;specificity&quot; parameters. If you try to register an investor that already exists, but with a different metadata tag, the existing investor will be returned with the old metadata tag. To update a user&#39;s metadata, you will want to use the <code>/platform/admin/update-metadata/:investorId</code> endpoint.</p>
+<h2 id='query-your-investors'>Query your Investors</h2>
+<p>This endpoint lets you run queries against all of your platform&#39;s investors.</p>
+
+<p>This optionally allows you to request the investors associated with a particular set of email addresses or investor ids. It also allows you to filter the results to those with a particular status.</p>
+
+<p>Note that this approach does not create (or return) new portal links for the returned investors.</p>
+
+<p>Investors are returned in order of creation date (newest first).</p>
+
+<p>This is especially useful for building out internal and sponsor-facing dashboards on your platform.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
-</tr>
-</tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span> <span class="se">\</span>
-  <span class="nt">-X</span> DELETE <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
+<p><code>POST /platform/investors/query</code></p>
+<h3 id='request-body-parameters-2'>Request Body Parameters</h3><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;integer</span><span class="w"> </span><span class="err">number</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">results</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">return</span><span class="p">,</span><span class="w"> </span><span class="err">default</span><span class="w"> </span><span class="mi">50</span><span class="err">&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pageNumber"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;integer</span><span class="w"> </span><span class="err">number</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">page</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">return</span><span class="p">,</span><span class="w"> </span><span class="err">default</span><span class="w"> </span><span class="mi">0</span><span class="err">&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"investorIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&lt;investorIds</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">include&gt;</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"emails"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&lt;emails</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">include&gt;</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"filterToStatus"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;status</span><span class="w"> </span><span class="err">string</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">include&gt;</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
+<p><strong>Pagination</strong></p>
+
+<p><code>pageSize</code> and <code>pageNumber</code> allow you to paginate your search results. Note that your pages are 0-indexed – your 50 most recent results are on page 0.</p>
+
+<p>By default, we will return the first page, using a default value of 50 results per page.</p>
+<h3 id='returns-2'>Returns</h3><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;number</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">results</span><span class="w"> </span><span class="err">returned&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"investors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&lt;Investor</span><span class="w"> </span><span class="err">Objects&gt;</span><span class="p">],</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The query endpoint returns the number of results returned, as well as a list of the investors found by the query.</p>
+<h3 id='examples'>Examples</h3>
+<blockquote>
+<p>Examples of <code>/query</code> request bodies </p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="c1">// Look up your 25 most recently created investors</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pageNumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c1">// Look up your 10 most recently created investors who are accredited</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pageNumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"filterToStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c1">// Look up a list of specific users</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"investorIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"sandbox-platform-investor-1aa64ab0e13cc6c919cf40effddb585813705765"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sandbox-platform-investor-c2bc40325bd1283f21da4852f00c6d77e073cbdc"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c1">// Get all currently-approved investors on your platform</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"filterToStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c1">// Get any investors in a specific list with an "ACTION_NEEDED" status</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"investorIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"sandbox-platform-investor-1aa64ab0e13cc6c919cf40effddb585813705765"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sandbox-platform-investor-c2bc40325bd1283f21da4852f00c6d77e073cbdc"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"filterToStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTION_NEEDED"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c1">// Get all investor accounts associated with a single email address</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"emails"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"sample-investor@example.com"</span><span class="p">],</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id='convenience-endpoints'>Convenience Endpoints</h2>
+<p>There are a few convenience endpoints for fetching information about your investors by <code>investorId</code>.  Use of these endpoints is a one reason to store your platform users&#39; <code>investorId</code> in your database alongside their other account information.</p>
+
+<hr>
+<h3 id='get-platform-investors-lookup-investorid'><code>GET /platform/investors/lookup/:investorId</code></h3>
+<p>Fetches all of an investor&#39;s accreditation information by their <code>investorId</code>.</p>
+
+<p>Note that this returns the investor object, as well as an updated portal link.</p>
+
+<p><strong>Request Params</strong></p>
+
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -522,77 +875,430 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
+<td>investorId</td>
+<td>The investor Id of an investor from your platform</td>
 </tr>
 </tbody></table>
-<h1 id='errors'>Errors</h1>
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
-</aside>
 
-<p>The Kittn API uses the following error codes:</p>
+<p><strong>Returns</strong></p>
+
+<blockquote>
+<p>Return format of <code>/platform/investor/lookup/:investorId</code></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="na">investor</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Investor</span><span class="w"> </span><span class="err">Object&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">portalLink</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;updated</span><span class="w"> </span><span class="err">portal</span><span class="w"> </span><span class="err">link</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">your</span><span class="w"> </span><span class="err">investor&gt;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>A json object with the investor object and an updated <code>portalLink</code> for that user.</p>
+
+<hr>
+<h3 id='get-platform-status-lookup-investorid'><code>GET /platform/status/lookup/:investorId</code></h3>
+<p>Fetches the status of an investor by their <code>investorId</code>.</p>
+
+<p><strong>Request Params</strong></p>
 
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>Parameter</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
-</tr>
-<tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
-</tr>
-<tr>
-<td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+<td>investorId</td>
+<td>The investor Id of an investor from your platform</td>
 </tr>
 </tbody></table>
+
+<p><strong>Returns</strong></p>
+
+<blockquote>
+<p>Return format of <code>/platform/status/lookup/:investorId</code></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="na">status</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Status</span><span class="w"> </span><span class="err">Object&gt;</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>A json object with the current status of this investor.</p>
+
+<hr>
+<h3 id='get-platform-accreditations-lookup-current-investorid'><code>GET /platform/accreditations/lookup-current/:investorId</code></h3>
+<p><strong>Request Params</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>investorId</td>
+<td>The investor Id of an investor from your platform</td>
+</tr>
+</tbody></table>
+
+<p><strong>Returns</strong></p>
+
+<blockquote>
+<p>Return format of <code>/platform/accreditations/lookup-current/:investorId</code></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="na">currentAccreditation</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Accreditation</span><span class="w"> </span><span class="err">Object</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">none</span><span class="w"> </span><span class="err">current&gt;</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>A json object with the current accreditation for an investor, if there is one. Otherwise, <code>null</code>.</p>
+
+<hr>
+<h3 id='get-platform-accreditations-lookup-all-investorid'><code>GET /platform/accreditations/lookup-all/:investorId</code></h3>
+<p><strong>Request Params</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>investorId</td>
+<td>The investor Id of an investor from your platform</td>
+</tr>
+</tbody></table>
+
+<p><strong>Returns</strong></p>
+
+<blockquote>
+<p>Return format of <code>/platform/accreditations/lookup-all/:investorId</code></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w"> 
+    </span><span class="na">accreditations</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&lt;Accreditation</span><span class="w"> </span><span class="err">Object&gt;</span><span class="p">],</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>A json object with an array of all accreditations (past and present) for this particular investor. No order is guaranteed.</p>
+<h2 id='download-an-accreditation-letter'>Download an accreditation letter</h2>
+<p>Download an accreditation letter as a PDF.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>GET /platform/accreditations/download/:accreditationId</code></p>
+<h3 id='request-params'>Request Params</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accreditationId</td>
+<td>The accreditation ID for an accreditation</td>
+</tr>
+</tbody></table>
+<h3 id='returns-3'>Returns</h3>
+<p>Downloads a PDF of the associated accreditation letter.</p>
+<h2 id='admin-and-event-endpoints'>Admin and Event Endpoints</h2>
+<p>There are a few simple endpoints for administrative tasks – testing your connection, setting metadata tags on investors, and working with our webhooks.</p>
+<h3 id='get-platform-admin-ping'><code>GET /platform/admin/ping</code></h3>
+<p>Tests your connection with our API, returning <code>{ success: true }</code> if your API secret key has successfully connected you to the Accreditations API.</p>
+
+<p>This is ideal for testing out your authentication.</p>
+
+<hr>
+<h3 id='post-platform-admin-update-metadata-tag-investorid'><code>POST /platform/admin/update-metadata-tag/:investorId</code></h3>
+<blockquote>
+<p>Format of the post body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"metadataTag"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;new</span><span class="w"> </span><span class="err">metadata</span><span class="w"> </span><span class="err">tag</span><span class="w"> </span><span class="err">value</span><span class="w"> </span><span class="err">as</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">string&gt;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Return format for <code>/platform/admin/update-metadata-tag/:investorId</code></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="na">investor</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Investor</span><span class="w"> </span><span class="err">Object&gt;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Update an investor&#39;s <code>metadataTag</code> property.</p>
+
+<p>You can remove an investor&#39;s current metadata tag by passing an empty string or null value as the <code>metadataTag</code> field&#39;s value in the post body.</p>
+
+<p><strong>Request Params</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>investorId</td>
+<td>The investor Id of an investor from your platform</td>
+</tr>
+</tbody></table>
+
+<p><strong>Request Body Parameters</strong></p>
+
+<p><strong>Returns</strong></p>
+
+<p>A json object with the updated investor object.</p>
+
+<hr>
+<h3 id='post-platform-admin-set-webhook-url'><code>POST /platform/admin/set-webhook-url</code></h3>
+<blockquote>
+<p>Format of the Post request body delievered to your <code>webhookUrl</code></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="na">event</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Event</span><span class="w"> </span><span class="err">object&gt;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Format of the post body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"webhookUrl"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;new</span><span class="w"> </span><span class="err">url</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">which</span><span class="w"> </span><span class="err">we</span><span class="w"> </span><span class="err">post</span><span class="w"> </span><span class="err">webhook</span><span class="w"> </span><span class="err">events&gt;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Updates your platform&#39;s webhook URL for recieving events.</p>
+
+<p>If there is no webhook url set, we will not deliver events. We will still keep record of them on our servers.</p>
+
+<p>The url you set up on your API should be able to accept a POST request that accepts a JSON object with an event object formatted as such</p>
+
+<p><strong>Request Body Parameters</strong></p>
+
+<hr>
+<h3 id='post-platform-events-query'><code>POST /platform/events/query</code></h3>
+<blockquote>
+<p>Format of the post body</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;integer</span><span class="w"> </span><span class="err">number</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">results</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">return</span><span class="p">,</span><span class="w"> </span><span class="err">default</span><span class="w"> </span><span class="mi">50</span><span class="err">&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pageNumber"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;integer</span><span class="w"> </span><span class="err">number</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">page</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">return</span><span class="p">,</span><span class="w"> </span><span class="err">default</span><span class="w"> </span><span class="mi">0</span><span class="err">&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"filterToType"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Event</span><span class="w"> </span><span class="err">Type</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">include&gt;</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Return format of <code>/platform/events/query</code></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;number</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">results</span><span class="w"> </span><span class="err">returned&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"events"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&lt;Event</span><span class="w"> </span><span class="err">Objects&gt;</span><span class="p">],</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Pulls a backlog of your accreditation events.</p>
+
+<p>You can optionally specify the type of event that you&#39;re looking for. This will return events whether or not they have been successfully delivered to your webhook receiver.</p>
+
+<p>Events are returned in order of creation date (newest first).</p>
+
+<p><strong>Request Body Parameters</strong></p>
+
+<p><code>pageSize</code> and <code>pageNumber</code> allow you to paginate your search results. Note that your pages are 0-indexed – your 50 most recent results are on page 0.</p>
+
+<p>By default, we will return the first page, using a default value of 50 results per page.</p>
+
+<p><strong>Returns</strong></p>
+
+<p><strong>Examples</strong></p>
+
+<blockquote>
+<p>Some sample queries. These JSON objects represent the body of the POST request.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="c1">// Look up your 25 most recently created events</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pageNumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c1">// Look up the events for your last 10 failed accreditations</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pageNumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"filterToType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACCREDITATION_FAILED"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h1 id='integration-example'>Integration Example</h1><h2 id='providing-your-users-with-a-quot-accreditation-portal-quot-button'>Providing your users with a &quot;Accreditation Portal&quot; Button</h2>
+<blockquote>
+<p>Your user or account model (in your database)</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;internal</span><span class="w"> </span><span class="err">database</span><span class="w"> </span><span class="err">id</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">user&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe@example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"businessType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INDIVIDUAL"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"sponsor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABC Investments"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"checkInvestorStatusId"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;userId</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="err">our</span><span class="w"> </span><span class="err">platform</span><span class="p">,</span><span class="w"> </span><span class="err">maybe</span><span class="w"> </span><span class="kc">null</span><span class="err">&gt;</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>We can put this all together in a comprehensive example by demonstrating how we could provide a user on your platform with a button that links them to their user portal.</p>
+
+<p>Let&#39;s assume that in your database, you have an account model that looks as formatted in the snippet on the right.</p>
+
+<p>In this example, we&#39;ll assume you have a react-based web application and a node express API, but this general approach can be taken regardless of platform, language, or infrastructure.</p>
+<h3 id='the-overall-information-flow-is-as-follows'>The overall information flow is as follows:</h3>
+<ol>
+<li>Your user opens a page on your front end webapp </li>
+<li>Your webapp requests a portal-id from your web server</li>
+<li>Your web server hits the <code>/platform/investors/register</code> of the Check Investor Status API and returns the platform portalLink</li>
+<li>Your webapp uses the portal-link as the <code>href</code> in the rendered button.</li>
+</ol>
+
+<p>This may seem like a lot of steps, but it&#39;s necessary to have your server act as an intermediary so that your users don&#39;t need to create accounts on our platform.</p>
+
+<p>Let&#39;s break down each step and provide code snippets.</p>
+<h2 id='1-your-user-opens-a-page-on-your-front-end-webapp'>1. Your user opens a page on your front-end webapp</h2>
+<p>This one is somewhat self-explanatory. This could be any page – a &quot;My Account&quot; page, an investment portal, etc. </p>
+
+<p>You can see an example of such a page at our live <a href="https://platformintegrationdemo.com/">platform integration demo</a>.</p>
+<h2 id='2-your-webapp-requests-a-portal-link-from-your-web-server'>2. Your webapp requests a portal-link from your web server</h2>
+<blockquote>
+<p>An example component requesting a portal-link to create a button</p>
+</blockquote>
+<div class="highlight"><pre class="highlight jsx tab-jsx"><code><span class="cm">/* Inside UserFacingComponent.jsx */</span>
+<span class="c1">// Save the portalLink from Check Investor Status as component state</span>
+<span class="kd">const</span> <span class="p">[</span><span class="nx">portalLink</span><span class="p">,</span> <span class="nx">setPortalLink</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="dl">''</span><span class="p">);</span>
+
+<span class="c1">// Get the user's ID from app context</span>
+<span class="kd">const</span> <span class="p">[{</span> <span class="nx">userId</span> <span class="p">}]</span> <span class="o">=</span> <span class="nx">useContext</span><span class="p">(</span><span class="nx">AppContext</span><span class="p">);</span>
+
+<span class="c1">// Load in the user from the API</span>
+<span class="nx">useEffect</span><span class="p">(</span><span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> 
+    <span class="nx">error</span><span class="p">,</span> 
+    <span class="na">portalLink</span><span class="p">:</span> <span class="nx">newPortalLink</span><span class="p">,</span> 
+  <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">getPortalLinkFromAPI</span><span class="p">(</span><span class="nx">userId</span><span class="p">);</span>
+
+  <span class="c1">// Save the token in localstorage and in the app state</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Handle Error </span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// Set the portalLink state in the component</span>
+    <span class="c1">// With the response from the api</span>
+    <span class="nx">setPortalLink</span><span class="p">(</span><span class="nx">newPortalLink</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">},</span> <span class="p">[]);</span>
+</code></pre></div>
+<blockquote>
+<p>The <code>getPortalLinkFromAPI</code> function may look something like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight jsx tab-jsx"><code><span class="cm">/* getPortalLinkFromAPI function */</span>
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">getPortalLinkFromAPI</span><span class="p">(</span><span class="nx">userId</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">fetch</span><span class="p">(</span>
+    <span class="s2">`https://yourservice.com/api/portal-link/</span><span class="p">${</span><span class="nx">userId</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+    <span class="p">{</span>
+      <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Get</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">,</span>
+      <span class="p">},</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">data</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">err</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="na">error</span><span class="p">:</span> <span class="nx">err</span> <span class="p">}));</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>You can do this however you generally have your front end and back end interact. In the example on the right, we use React Webhooks.</p>
+
+<p>In this example, your backend web server is located at <a href="#">https://yourservice.com</a></p>
+
+<p>Note also that your API is likely protected by some sort of authentication, but this is left out of the example for simplicity.</p>
+<h2 id='3-your-web-server-hits-the-platform-investors-register-endpoint-of-the-check-investor-status-api'>3. Your web server hits the <code>/platform/investors/register</code> endpoint of the Check Investor Status API</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="cm">/* api/portal-link.js (in yourservice.com) */</span>
+
+<span class="kd">const</span> <span class="nx">fetch</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">node-fetch</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">express</span><span class="p">())</span>
+
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">getUserFromDatabase</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="cm">/*...*/</span><span class="p">)</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/api/portal-link/:userId</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">userId</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span>
+  <span class="c1">// Get your user from your database</span>
+  <span class="kd">const</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="p">,</span>
+    <span class="nx">email</span><span class="p">,</span>
+    <span class="nx">businessType</span><span class="p">,</span>
+    <span class="nx">sponsor</span><span class="p">,</span>
+  <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">getUserFromDatabase</span><span class="p">(</span><span class="nx">userId</span><span class="p">)</span>
+
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span>
+      <span class="s2">`https://check-investor-status.herokuapp.com/platform/investors/register`</span><span class="p">,</span>
+      <span class="p">{</span>
+        <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Post</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
+          <span class="c1">// Map your internal user data to CI</span>
+          <span class="c1">// parameters in the request body.</span>
+          <span class="nx">email</span><span class="p">,</span>
+          <span class="na">legalName</span><span class="p">:</span> <span class="nx">name</span><span class="p">,</span>
+          <span class="na">investorType</span><span class="p">:</span> <span class="nx">businessType</span><span class="p">,</span>
+          <span class="c1">// Optionally store the sponsor as metadata</span>
+          <span class="na">metadataTag</span><span class="p">:</span> <span class="nx">sponsor</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+          <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">,</span>
+          <span class="dl">'</span><span class="s1">X-API-ACCESS</span><span class="dl">'</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">CI_API_SECRET_KEY</span><span class="p">,</span>
+        <span class="p">},</span>
+      <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="c1">// Deconstruct the response</span>
+    <span class="kd">let</span> <span class="p">{</span>
+      <span class="k">new</span><span class="p">,</span>  <span class="c1">// Whether investor was created (vs. found)</span>
+      <span class="nx">investor</span><span class="p">,</span>  <span class="c1">// Investor model</span>
+      <span class="nx">portalLink</span><span class="p">,</span>  <span class="c1">// What we care about</span>
+    <span class="p">}</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+
+    <span class="c1">// Return portalLink the front end</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span> <span class="nx">portalLink</span> <span class="p">})</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">500</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div>
+<p>So now we just have to mock up the endpoint on yourservice.com (your back end). Let&#39;s assume that you have your API secret key stored as the environment variable <code>CI_API_SECRET_KEY</code>.</p>
+
+<p>Your endpoint may look something like the express endpoint on the right.</p>
+<h2 id='4-your-webapp-uses-the-portal-link-as-the-href-in-the-rendered-button'>4. Your webapp uses the portal-link as the <code>href</code> in the rendered button.</h2><div class="highlight"><pre class="highlight jsx tab-jsx"><code><span class="cm">/* Inside UserFacingComponent.jsx */</span>
+<span class="kd">const</span> <span class="nx">UserFacingComponent</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">portalLink</span><span class="p">,</span> <span class="nx">setPortalLink</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="dl">''</span><span class="p">);</span>
+
+  <span class="c1">// Get the user's ID from app context</span>
+  <span class="kd">const</span> <span class="p">[{</span> <span class="nx">userId</span> <span class="p">}]</span> <span class="o">=</span> <span class="nx">useContext</span><span class="p">(</span><span class="nx">AppContext</span><span class="p">);</span>
+
+  <span class="c1">// Load in the user from the API</span>
+  <span class="nx">useEffect</span><span class="p">(</span><span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="c1">// Code from above (Step #2)</span>
+      <span class="c1">// ...</span>
+  <span class="p">})</span>
+
+  <span class="c1">// Render a link for the user</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">a</span>
+      <span class="na">href</span><span class="p">=</span><span class="si">{</span><span class="nx">portalLink</span><span class="si">}</span>
+      <span class="na">target</span><span class="p">=</span><span class="s">"_blank"</span>
+      <span class="na">className</span><span class="p">=</span><span class="s">'link'</span>
+    <span class="p">&gt;</span>
+      Accreditation Portal
+    <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Finally, now that we&#39;ve used an API call to yourservice.com, which in turn hit the Check Investor Status API, we should have access to it in the component we started above.</p>
+
+<p>Specifically, the <code>useEffect</code> hook in step 2. will store the portalLink specific for your user to the <code>portalLink</code> state.</p>
+
+<p>Now we can render that however we please – a link, and . If the user visits the <code>portalLink</code>, they will automatically be taken to Check Investor Status&#39; platform experience. They&#39;ll be logged in (no account creation) and their account information will be pre-filled (no information re-entry).</p>
+<h3 id='that-39-s-it'>That&#39;s it!</h3>
+<p>That alone is sufficient to provide your users with access to the entire check investor status platform.</p>
+
+<p>Other endpoints can be hit with a similar data flow. Using the other documented endpoints, you can do everything from checking the verification status for a user to building dashboards for sponsors.</p>
+<h1 id='documentation-todos'>Documentation TODOs</h1>
+<ul>
+<li>Workflows visualization / development stories</li>
+<li>Sample repo with examples</li>
+<li>More examples
+
+<ul>
+<li>Building a sponsor dashboard</li>
+<li>Working with events / webhooks</li>
+</ul></li>
+</ul>
 
       </div>
       <div class="dark-box">
-          <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
-          </div>
       </div>
     </div>
   </body>
