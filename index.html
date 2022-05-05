@@ -303,7 +303,7 @@
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="images/logo-80aa6542.png" class="logo" alt="" />
+      <img src="images/logo-7b10d278.png" class="logo" alt="" />
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
         </div>
@@ -319,11 +319,6 @@
           </li>
           <li>
             <a href="#getting-started" class="toc-h1 toc-link" data-title="Getting Started">Getting Started</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#request-a-platform-account" class="toc-h2 toc-link" data-title="Request a Platform Account">Request a Platform Account</a>
-                  </li>
-              </ul>
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
@@ -423,22 +418,20 @@
 <li>Less friction for investors and less drop-off due to accreditation requirements.</li>
 <li>Less room for potentially-costly accreditation errors.</li>
 <li>Reduced cognitive overhead and manual work for your customer service, investor relations, and legal teams.</li>
-<li>Decreased spending spending on general or outside council.</li>
+<li>Decreased spending on general or outside council.</li>
 </ul>
 
 <p><strong>Highlights of the integration experience:</strong></p>
 
 <ul>
-<li><strong>Quick set up</strong> – You can start your investors getting accredited by writing a API endpoint on your server, and then adding a button to your platform.</li>
-<li><strong>No Investor Registration</strong> – You use our API to register your users as investors with Check Investor Status. This means your investors never have to create a Check Investor Status account. </li>
-<li><strong>No Investor Data Re-entry</strong> – You can pre-fill investor information when you register (email address, type of legal entity, legal name) them. That way, investors don&#39;t need to re-enter data you already have.</li>
-<li><strong>Automated Follow-up and Re-Review Processes</strong> – Did an investor make a mistake in their documentation? Have they started but not finished their process? We&#39;ll followup with them and re-review when they fix their documentation.</li>
+<li><strong>Quick set up</strong> – Set up is as simple as adding one API endpoint to your server and retrieving a URL for your investor. You control the UX of how the investor sees that button.</li>
+<li><strong>No Investor Registration</strong> – You use our API to register your users as investors with Check Investor Status. This means your investors never have to create a Check Investor Status account.</li>
+<li><strong>No Investor Data Re-entry</strong> – You can pre-fill investor information when you register (email address, type of legal entity, legal name) on your investors&#39; behalf. They don&#39;t need to re-enter data you already have.</li>
+<li><strong>Automated Follow-up and Re-Rreview Processes</strong> – Did an investor make a mistake in their documentation? Have they started but not finished their process? We&#39;ll followup with them and re-review when they fix their documentation.</li>
 <li><strong>Programmatic Access to Accreditation Info</strong> – You can check the status of your investors as they proceed through the platform, or even download a PDF of the accreditation letter we issue for your accredited investors.</li>
 <li><strong>Ongoing Support and Development</strong> – We&#39;re in active development of this product. Have a feature request? Not sure how something works? Just ask – if we haven&#39;t built it already, we can likely add support for it soon.</li>
 </ul>
 <h1 id='getting-started'>Getting Started</h1>
-<p>There are only 3 steps to setting up with Check Investor Status.</p>
-<h2 id='request-a-platform-account'>Request a Platform Account</h2>
 <p>Contact <a href="mailto:carter@checkinvestorstatus.com">carter@checkinvestorstatus.com</a> to set up a platform integration account.</p>
 
 <p>Once we&#39;ve set up your platform account, you&#39;ll be given a <strong>Platform API Secret Key</strong> that you can use to access our platform API functions programmatically.</p>
@@ -466,34 +459,40 @@ Check Investor Status is not liable for unauthorized access to the platform via 
 <p>Note that, for security purposes, &quot;portal Links&quot; are expired and regenerated every time you look up a an investor with our API. </p>
 
 <p>It is not recommended to store a portal link in persistent storage (EG on your database). Instead, we highly recommend storing the investor&#39;s <code>investorId</code> on your database&#39;s representation of your user. With this, you can dynamically request a new portal link for the user when rendering the &quot;Get Accredited&quot; button.</p>
-<h1 id='data-models'>Data Models</h1><h2 id='investor-model'>Investor Model</h2><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+
+<aside class="success">
+Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll be supporting a "Pure-API" solution that will let you handle the information intake without using our portal UX. Reach out to support with any questions or to be included in the beta for that workflow.
+</aside>
+<h1 id='data-models'>Data Models</h1><h2 id='investor-model'>Investor Model</h2>
+<blockquote>
+<p>Format of the user model</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
     </span><span class="c1">// Investor Identifiers</span><span class="w">
     </span><span class="na">investorId</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;a</span><span class="w"> </span><span class="err">unique</span><span class="w"> </span><span class="err">generated</span><span class="w"> </span><span class="err">string</span><span class="w"> </span><span class="err">identifying</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">investor&gt;</span><span class="p">,</span><span class="w">
     </span><span class="na">creationDate</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Date</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">account</span><span class="w"> </span><span class="err">was</span><span class="w"> </span><span class="err">created&gt;</span><span class="p">,</span><span class="w">
 
     </span><span class="c1">// Investor Information</span><span class="w">
-    </span><span class="na">email</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;the</span><span class="w"> </span><span class="err">email</span><span class="w"> </span><span class="err">address</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">reaching</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">investor&gt;</span><span class="p">,</span><span class="w">
-    </span><span class="na">legalName</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;the</span><span class="w"> </span><span class="err">legal</span><span class="w"> </span><span class="err">name</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">investor&gt;</span><span class="p">,</span><span class="w">
-    </span><span class="na">investorType</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;the</span><span class="w"> </span><span class="err">selected</span><span class="w"> </span><span class="err">entity</span><span class="w"> </span><span class="err">type</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">investor&gt;</span><span class="p">,</span><span class="w">
-    </span><span class="na">verificationMethod</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;the</span><span class="w"> </span><span class="err">selected</span><span class="w"> </span><span class="err">verification</span><span class="w"> </span><span class="err">method</span><span class="w"> </span><span class="err">(see</span><span class="w"> </span><span class="err">below)&gt;</span><span class="p">,</span><span class="w">
-    </span><span class="na">metadataTag</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;optional</span><span class="w"> </span><span class="err">platform-supplied</span><span class="w"> </span><span class="err">metadata</span><span class="w"> </span><span class="err">stored</span><span class="w"> </span><span class="err">on</span><span class="w"> </span><span class="err">investor&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">email</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;email</span><span class="w"> </span><span class="err">address</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">investor&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">legalName</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;legal</span><span class="w"> </span><span class="err">name</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">investor&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">investorType</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;entity</span><span class="w"> </span><span class="err">type</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">investor&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">verificationMethod</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;selected</span><span class="w"> </span><span class="err">verification</span><span class="w"> </span><span class="err">method</span><span class="w"> </span><span class="err">(see</span><span class="w"> </span><span class="err">below)&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">metadataTag</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;optional</span><span class="w"> </span><span class="err">platform-supplied</span><span class="w"> </span><span class="err">metadata</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">investor&gt;</span><span class="p">,</span><span class="w">
     </span><span class="na">dependentOnInvestors</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="err">&lt;investorId</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">an</span><span class="w"> </span><span class="err">investor</span><span class="w"> </span><span class="err">whose</span><span class="w"> </span><span class="err">accreditation</span><span class="w"> </span><span class="err">impacts</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">investor's&gt;</span><span class="w">
     </span><span class="p">],</span><span class="w">
 
     </span><span class="c1">// Status and Accreditation information</span><span class="w">
     </span><span class="na">status</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;a</span><span class="w"> </span><span class="err">status</span><span class="w"> </span><span class="err">object</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">user</span><span class="w"> </span><span class="err">(see</span><span class="w"> </span><span class="err">below)&gt;</span><span class="p">,</span><span class="w">
-    </span><span class="na">accreditations</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&lt;All</span><span class="w"> </span><span class="err">accreditation</span><span class="w"> </span><span class="err">objects</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">user</span><span class="w"> </span><span class="err">(see</span><span class="w"> </span><span class="err">below)&gt;</span><span class="p">],</span><span class="w">
+    </span><span class="na">accreditations</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&lt;An</span><span class="w"> </span><span class="err">accreditation</span><span class="w"> </span><span class="err">object</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">user</span><span class="w"> </span><span class="err">(see</span><span class="w"> </span><span class="err">below)&gt;</span><span class="p">],</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>An investor represents a single account in our API that can be an accredited investor. One person in your platform (eg. John Smith) may have multiple &quot;investor accounts&quot; at once – for example, if they are an individual investor, but also manage a company that invests.</p>
+<p>An investor represents a single account in our API that can be an accredited investor. One user in your platform (eg. John Smith) may have multiple &quot;investor accounts&quot; at once – for example, if they are an individual investor, but also manage a company that invests.</p>
 
 <p>An investor may be have multiple recorded accreditations. In fact, because accreditations expire, most repeat investors will have multiple accreditations associated with them.</p>
-
-<p><strong>Platform-supplied fields (Pre-filled information)</strong></p>
-
+<h3 id='platform-supplied-fields-pre-filled-information'>Platform-supplied fields (Pre-filled information)</h3>
 <p>Our API allows platforms to automatically pre-fill the <code>email</code>,  <code>legalName</code>, and <code>investorType</code> of their investors&#39; accounts. However, the combination of those three fields must be unique – no two investor accounts can have the same combination of <code>(email, legalName, investorType)</code>.</p>
-
+<h3 id='investor-model-fields'>Investor Model Fields</h3>
 <p>An investor model has the following structure:</p>
 
 <p><strong><code>investorId</code></strong></p>
@@ -504,14 +503,15 @@ Check Investor Status is not liable for unauthorized access to the platform via 
 
 <p><strong><code>dateCreated</code></strong></p>
 
-<p>Date when the investor&#39;s Check Investor Status investor account was created.</p>
+<p>Date when the investor&#39;s Check Investor Status account was registered.</p>
 
 <p><strong><code>email</code></strong></p>
 
-<p>The email address we will use to contact the user. They are automatically emailed when their accreditation status changes, or if we need updated or additional documentation.</p>
+<p>The email address we will use to contact the user. They are automatically emailed when their accreditation status changes, or if we need updated / additional documentation.</p>
 
-<p><strong><code>legalName</code></strong>
-Legal Names must correspond exactly with the legal name that appears on an investor&#39;s provided documentation. </p>
+<p><strong><code>legalName</code></strong></p>
+
+<p>Legal Names must correspond exactly with the legal name that appears on an investor&#39;s provided documentation. </p>
 
 <p>For example:</p>
 
@@ -528,59 +528,154 @@ Legal Names must correspond exactly with the legal name that appears on an inves
 
 <p>Investor type must be one of the following values:</p>
 
-<ul>
-<li><strong><code>INDIVIDUAL</code></strong> – a natural person investing as themself.</li>
-<li><strong><code>JOINT</code></strong> – a married couple or spousal equivalent investing together.</li>
-<li><strong><code>ENTITY</code></strong> – a business entity investing as a legal person.</li>
-<li><strong><code>TRUST</code></strong> – a trust investing as a legal person.</li>
-</ul>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>INDIVIDUAL</code></td>
+<td>a natural person investing as themself</td>
+</tr>
+<tr>
+<td><code>JOINT</code></td>
+<td>a married couple or spousal equivalent investing together</td>
+</tr>
+<tr>
+<td><code>ENTITY</code></td>
+<td>a business entity (EG an LLC) investing as a legal person</td>
+</tr>
+<tr>
+<td><code>TRUST</code></td>
+<td>a trust investing as a legal person</td>
+</tr>
+</tbody></table>
 
 <p><strong><code>verificationMethod</code></strong></p>
 
-<p>Verification Method represents the qualification under which the investor qualifies as an &quot;accredited investor&quot;. To learn more about the specifics of how this works, request a copy of our Legal and Compliance documentation.</p>
+<p>Verification Method represents the qualification under which the investor qualifies as an &quot;accredited investor.&quot; To learn more about the specifics of how this works, request a copy of our Regulatory and Compliance documentation.</p>
 
 <p>The following are the possible values of <code>verificationMethod</code>:</p>
 
-<ul>
-<li><strong><code>LETTER</code></strong> - Individual qualified by letter from qualified professional</li>
-<li><strong><code>INCOME</code></strong> - Individual qualified by annual income</li>
-<li><strong><code>FINANCE_PROFESSIONAL</code></strong> - Individual qualified by professional financial qualifications</li>
-<li><strong><code>DIRECTOR</code></strong> - Individual qualified as a director at a sponsor (Accreditation scoped to the sponsor level – See notes below).</li>
-<li><strong><code>EMPLOYEE</code></strong> - Individual qualified as a knowledgeable employee for a deal (Accreditation scoped to the deal level – See notes below).</li>
-<li><strong><code>NET_WORTH</code></strong> - Individual qualified by their net worth</li>
-<li><strong><code>NONE_OF_THE_ABOVE</code></strong> - Individual qualified by extenuating circumstance (Rare – See notes below)</li>
-<li><strong><code>JOINT_LETTER</code></strong> - Spousal couple qualified by letter from qualified professional</li>
-<li><strong><code>JOINT_INCOME</code></strong> - Spousal couple qualified by annual income</li>
-<li><strong><code>JOINT_NET_WORTH</code></strong> - Spousal couple qualified by net worth</li>
-<li><strong><code>JOINT_NONE_OF_THE_ABOVE</code></strong> - Spousal couple qualified by extenuating circumstance (Rare – see notes below)</li>
-<li><strong><code>ENTITY_LETTER</code></strong> - Entity qualified by letter from qualified professional</li>
-<li><strong><code>ENTITY_NET_WORTH</code></strong> - Entity qualified by assets under management</li>
-<li><strong><code>ENTITY_STATUS</code></strong> - Entity qualified by special regulatory status</li>
-<li><strong><code>ENTITY_SPECIAL</code></strong> - Entity qualified by combination of status and assets under management</li>
-<li><strong><code>ENTITY_FIDUCIARY_EBP</code></strong> - Entity qualified as fiduciary-led employee benefit program</li>
-<li><strong><code>ENTITY_SELF_DIRECTED_EBP</code></strong> - Entity qualified as self-directed Employee Benefit Plan</li>
-<li><strong><code>ENTITY_ACCREDITED_INDIVIDUALS</code></strong> - Entity qualified as composed of solely accredited equity owners</li>
-<li><strong><code>ENTITY_NONE_OF_THE_ABOVE</code></strong> - Entity qualified by extenuating circumstances (Rare – see notes below)</li>
-<li><strong><code>TRUST_LETTER</code></strong> - Trust qualified by letter from qualified professional</li>
-<li><strong><code>TRUST_NET_WORTH</code></strong> - Trust qualified by assets under management</li>
-<li><strong><code>TRUST_ACCREDITED_INDIVIDUALS</code></strong> - Trust qualified as being composed solely of accredited &quot;Equity Owners&quot; (SEC&#39;s definition here is wonky, see Regulatory Compliance documentation for more details)</li>
-<li><strong><code>TRUST_NONE_OF_THE_ABOVE</code></strong> - Trust qualified by extenuating circumstances (Rare – see notes below)</li>
-</ul>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>LETTER</code></td>
+<td>Individual qualified by letter from qualified professional</td>
+</tr>
+<tr>
+<td><code>INCOME</code></td>
+<td>Individual qualified by annual income</td>
+</tr>
+<tr>
+<td><code>FINANCE_PROFESSIONAL</code></td>
+<td>Individual qualified by professional financial qualifications</td>
+</tr>
+<tr>
+<td><code>DIRECTOR</code></td>
+<td>Individual qualified as a director at a sponsor</td>
+</tr>
+<tr>
+<td><code>EMPLOYEE</code></td>
+<td>Individual qualified as a knowledgeable employee for a deal</td>
+</tr>
+<tr>
+<td><code>NET_WORTH</code></td>
+<td>Individual qualified by their net worth</td>
+</tr>
+<tr>
+<td><code>NONE_OF_THE_ABOVE</code></td>
+<td>Individual qualified by extenuating circumstance</td>
+</tr>
+<tr>
+<td><code>JOINT_LETTER</code></td>
+<td>Spousal couple qualified by letter from qualified professional</td>
+</tr>
+<tr>
+<td><code>JOINT_INCOME</code></td>
+<td>Spousal couple qualified by annual income</td>
+</tr>
+<tr>
+<td><code>JOINT_NET_WORTH</code></td>
+<td>Spousal couple qualified by net worth</td>
+</tr>
+<tr>
+<td><code>JOINT_NONE_OF_THE_ABOVE</code></td>
+<td>Spousal couple qualified by extenuating circumstance</td>
+</tr>
+<tr>
+<td><code>ENTITY_LETTER</code></td>
+<td>Entity qualified by letter from qualified professional</td>
+</tr>
+<tr>
+<td><code>ENTITY_NET_WORTH</code></td>
+<td>Entity qualified by assets under management</td>
+</tr>
+<tr>
+<td><code>ENTITY_STATUS</code></td>
+<td>Entity qualified by special regulatory status</td>
+</tr>
+<tr>
+<td><code>ENTITY_SPECIAL</code></td>
+<td>Entity qualified by combination of status and assets under management</td>
+</tr>
+<tr>
+<td><code>ENTITY_FIDUCIARY_EBP</code></td>
+<td>Entity qualified as fiduciary-led employee benefit program</td>
+</tr>
+<tr>
+<td><code>ENTITY_SELF_DIRECTED_EBP</code></td>
+<td>Entity qualified as self-directed Employee Benefit Plan</td>
+</tr>
+<tr>
+<td><code>ENTITY_ACCREDITED_INDIVIDUALS</code></td>
+<td>Entity qualified as composed of solely accredited equity owners</td>
+</tr>
+<tr>
+<td><code>ENTITY_NONE_OF_THE_ABOVE</code></td>
+<td>Entity qualified by extenuating circumstances</td>
+</tr>
+<tr>
+<td><code>TRUST_LETTER</code></td>
+<td>Trust qualified by letter from qualified professional</td>
+</tr>
+<tr>
+<td><code>TRUST_NET_WORTH</code></td>
+<td>Trust qualified by assets under management</td>
+</tr>
+<tr>
+<td><code>TRUST_ACCREDITED_INDIVIDUALS</code></td>
+<td>Trust qualified as being composed solely of accredited &quot;Equity Owners&quot; (SEC&#39;s definition here is wonky, see Regulatory Compliance documentation for more details)</td>
+</tr>
+<tr>
+<td><code>TRUST_NONE_OF_THE_ABOVE</code></td>
+<td>Trust qualified by extenuating circumstances</td>
+</tr>
+</tbody></table>
 
 <p><strong><code>metadataTag</code></strong></p>
 
 <p>This is a metadata string you can store on the investor that will be returned with the investor, as well as with billing events associated with them.</p>
 
-<p>The most common use case is storing a sponsor identifier, so that you can track which sponsors to bill for which events. EG, if an investor is clicks &quot;Get Accredited&quot; on the invest page for a particular investment, you may add an identifier for that investment or sponsor as the <code>metadataTag</code> for that user.</p>
+<p>The most common use case is storing a sponsor identifier, so that you can track which sponsors to bill for which events. For example, if an investor is clicks &quot;Get Accredited&quot; on the invest page for a particular investment, you may add an identifier for that investment or sponsor as the <code>metadataTag</code> for that user.</p>
 
-<p>This field is managed entirely by the platform – we provide you with the ability to set and update this field, but its use and management is up to you. </p>
+<p>This field is managed entirely by the platform – we provide you with the ability to set and update this field, but its use and management is up to you.</p>
 
 <p><strong><code>dependentOnInvestors</code></strong></p>
 
-<p>This is an array of  <code>investorId</code>s for investors whose accreditations this (the parent investor) is waiting on. </p>
+<p>This is an array of  <code>investorId</code>s for investors whose accreditations this investor (AKA the parent investor) is waiting on. </p>
 
-<p>For example, if this investor is an Entity or Trust who is accredited by nature of each of their entity owners being accredited, this list would have the investorIds of each of the investors being waited on.</p>
-<h2 id='status-model'>Status Model</h2><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+<p>For example, if this investor is an entity or trust who is accredited by nature of each of their entity owners being accredited, this list would have the investorIds of each of the investors being waited on.</p>
+<h2 id='status-model'>Status Model</h2>
+<blockquote>
+<p>Format of the Status Model</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
     </span><span class="na">status</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;A</span><span class="w"> </span><span class="err">Status</span><span class="w"> </span><span class="err">Value</span><span class="w"> </span><span class="err">(see</span><span class="w"> </span><span class="err">below)</span><span class="p">,</span><span class="w">
     </span><span class="na">expiration</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Date</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">status</span><span class="w"> </span><span class="err">expires</span><span class="p">,</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="kc">null</span><span class="err">&gt;</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -612,25 +707,58 @@ Legal Names must correspond exactly with the legal name that appears on an inves
 
 <p>Where the investor is in the accreditation pipeline. Possible values are:</p>
 
-<ul>
-<li><code>NOT_FOUND</code> – We did not find an investor associated with that email in our records.</li>
-<li><code>ACTION_NEEDED</code> – The investor has started the accreditation process but has not completed it.</li>
-<li><code>IN_REVIEW</code> – The investor has uploaded documentation that is under legal review by our team.</li>
-<li><code>MORE_INFO</code> – We&#39;ve reached out to the investor for more information or additional documentation.</li>
-<li><code>WAITING</code> – The investor accreditation is currently blocked on other accreditations (EG an entity waiting on the accreditations of its equity owners)</li>
-<li><code>ACCREDITED</code> – The investor has a current, valid accreditation. </li>
-<li><code>EXPIRED</code> – The investor has a current, valid accreditation. </li>
-<li><code>FAILED</code> – We have determined that we are unable to verify this investor&#39;s accreditation</li>
-</ul>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>NOT_FOUND</code></td>
+<td>We did not find an investor associated with that email in our records.</td>
+</tr>
+<tr>
+<td><code>ACTION_NEEDED</code></td>
+<td>The investor has started the accreditation process but has not completed it.</td>
+</tr>
+<tr>
+<td><code>IN_REVIEW</code></td>
+<td>The investor has uploaded documentation that is under legal review by our team.</td>
+</tr>
+<tr>
+<td><code>MORE_INFO</code></td>
+<td>We&#39;ve reached out to the investor for more information or additional documentation.</td>
+</tr>
+<tr>
+<td><code>WAITING</code></td>
+<td>The investor accreditation is currently blocked on other accreditations (EG an entity waiting on the accreditations of its equity owners)</td>
+</tr>
+<tr>
+<td><code>ACCREDITED</code></td>
+<td>The investor has a current, valid accreditation.</td>
+</tr>
+<tr>
+<td><code>EXPIRED</code></td>
+<td>The investor has a current, valid accreditation.</td>
+</tr>
+<tr>
+<td><code>FAILED</code></td>
+<td>We have determined that we are unable to verify this investor&#39;s accreditation</td>
+</tr>
+</tbody></table>
 
 <p><strong><code>expiration</code></strong> </p>
 
 <p>If the investor is currently accredited, this field will contain the date that the current accreditation expires. </p>
 
-<p>If the investor is not accredited, this field will contain the date their current status expires and their investor account is archived. Some statuses do not expire, but we can only hold information on an investor that begins an accreditation for 90 days.</p>
-<h2 id='accreditation-model'>Accreditation Model</h2><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
-    </span><span class="na">accreditationId</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;internal</span><span class="w"> </span><span class="err">identifier</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">accreditation&gt;</span><span class="p">,</span><span class="w">
-    </span><span class="na">verificationMethod</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;the</span><span class="w"> </span><span class="err">selected</span><span class="w"> </span><span class="err">verification</span><span class="w"> </span><span class="err">method</span><span class="w"> </span><span class="err">(see</span><span class="w"> </span><span class="err">below)&gt;</span><span class="p">,</span><span class="w">
+<p>If the investor is not accredited, this field will contain the date their current status expires and their investor account is archived. Some statuses do not expire, but we can only hold information on an investor for 90 days.</p>
+<h2 id='accreditation-model'>Accreditation Model</h2>
+<blockquote>
+<p>Format of the Accreditation Model</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="na">accreditationId</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Internal</span><span class="w"> </span><span class="err">identifier</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">accreditation&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">verificationMethod</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Selected</span><span class="w"> </span><span class="err">verification</span><span class="w"> </span><span class="err">method&gt;</span><span class="p">,</span><span class="w">
     </span><span class="na">dateCreated</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Date</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">creation</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">accreditation&gt;</span><span class="p">,</span><span class="w">
     </span><span class="na">expirationDate</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Date</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">letter</span><span class="w"> </span><span class="err">expires&gt;</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -638,15 +766,17 @@ Legal Names must correspond exactly with the legal name that appears on an inves
 <blockquote>
 <p>Accreditation Model Examples:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="c1">// A Current Accreditation</span><span class="w">
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="c1">// A current Accreditation (until 6/14/2023)</span><span class="w">
+</span><span class="c1">// Note that a real accreditation wouldn't expire</span><span class="w">
+</span><span class="c1">// so far out from when it was issued.</span><span class="w">
 </span><span class="p">{</span><span class="w">
     </span><span class="na">accreditationId</span><span class="p">:</span><span class="w"> </span><span class="s2">"623139b30bca64b9298bc746"</span><span class="p">,</span><span class="w">
     </span><span class="na">verificationMethod</span><span class="p">:</span><span class="w"> </span><span class="s2">"ENTITY_NET_WORTH"</span><span class="p">,</span><span class="w">
     </span><span class="na">dateCreated</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-03-16T01:13:23.040Z"</span><span class="p">,</span><span class="w">
-    </span><span class="na">expirationDate</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-06-14T01:13:23.040Z"</span><span class="p">,</span><span class="w">
+    </span><span class="na">expirationDate</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-06-14T01:13:23.040Z"</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span><span class="c1">// An expired Accreditation</span><span class="w">
+</span><span class="c1">// An expired Accreditation (as of 3/4/2022)</span><span class="w">
 </span><span class="p">{</span><span class="w">
     </span><span class="na">accreditationId</span><span class="p">:</span><span class="w"> </span><span class="s2">"61e7b43c10a0f6e3830d0512"</span><span class="p">,</span><span class="w">
     </span><span class="na">verificationMethod</span><span class="p">:</span><span class="w"> </span><span class="s2">"FINANCIAL_PROFESSIONAL"</span><span class="p">,</span><span class="w">
@@ -671,7 +801,11 @@ Legal Names must correspond exactly with the legal name that appears on an inves
 <p><strong><code>expirationDate</code></strong></p>
 
 <p>The date this accreditation expires, and can no longer be used to verify the accredited status of the investor.</p>
-<h2 id='event-model'>Event Model</h2><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+<h2 id='event-model'>Event Model</h2>
+<blockquote>
+<p>Format of the Event Model</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
     </span><span class="na">date</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Date</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">creation</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">event&gt;</span><span class="p">,</span><span class="w">
     </span><span class="na">type</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;String</span><span class="w"> </span><span class="err">with</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">type</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">event</span><span class="w"> </span><span class="err">has</span><span class="w"> </span><span class="err">occurred&gt;</span><span class="p">,</span><span class="w">
     </span><span class="na">investorId</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;ID</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">investor</span><span class="w"> </span><span class="err">who</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">event</span><span class="w"> </span><span class="err">pertains</span><span class="w"> </span><span class="err">to&gt;</span><span class="p">,</span><span class="w">
@@ -682,35 +816,53 @@ Legal Names must correspond exactly with the legal name that appears on an inves
 
 <ol>
 <li> A billable event occurs, or </li>
-<li> An accreditation process is completed (successfully or not)</li>
+<li> An accreditation process is completed (successfully or otherwise)</li>
 </ol>
 
 <p>The 3 types of events you may receive are:</p>
 
-<ul>
-<li><strong><code>BILLABLE_EVENT</code></strong> – an investor&#39;s accreditation application has moved to legal review, and their </li>
-<li><strong><code>ACCREDITATION_SUCCEEDED</code></strong> - an investor&#39;s accreditation application was approved, and an accreditation letter was issued.</li>
-<li><strong><code>ACCREDITATION_FAILED</code></strong> - an investor&#39;s accreditation application was denied, and we have determined that we cannot issue an accreditation letter.</li>
-</ul>
+<table><thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>BILLABLE_EVENT</code></td>
+<td>an investor&#39;s accreditation application has been completed and sent to legal review</td>
+</tr>
+<tr>
+<td><code>ACCREDITATION_SUCCEEDED</code></td>
+<td>an investor&#39;s accreditation application was approved, and an accreditation letter was issued</td>
+</tr>
+<tr>
+<td><code>ACCREDITATION_FAILED</code></td>
+<td>an investor&#39;s accreditation application was denied or expired due to inactivity</td>
+</tr>
+</tbody></table>
 
-<p>To set up your webhook receiver, use the <code>platform/admin/update-webhook-url</code> endpoint (documented below). The url provided should be able to accept </p>
+<p>To set up your webhook receiver, use the <code>platform/admin/update-webhook-url</code> endpoint (documented below).</p>
 
 <p>We currently do not retry delivery on webhook events that are not delivered successfully, but you can retroactively pull a list of your events from the last month with the <code>platform/events/query</code> endpoint (documented below).</p>
 <h1 id='api-endpoints'>API Endpoints</h1>
 <p>We provide API access to read and modify your investors&#39; accreditation data programmatically.</p>
 
-<p>Some common use cases for the Accreditation API include:
-* Registering your users as Investors in our platform.
-* Adding information about accreditation data to your investors&#39; user account within your platform.
-* Checking the status of an investor&#39;s accreditation before allowing them to perform certain actions or see certain views on your platform
-* Automatically creating sponsor accounts when a new issuer joins your platform
-* Creating custom dashboards for your internal team</p>
+<p>Some common use cases for the Accreditation API include:</p>
+
+<ul>
+<li>Registering your users as Investors in our platform.</li>
+<li>Fetching a portal link for your user to click.</li>
+<li>Querying all of your investors, or events that have occurred.</li>
+<li>Getting the accreditation or status associated with a user in your platform.</li>
+<li>Creating custom dashboards for your sponsors or internal teams.</li>
+<li>Updating your webhooks or querying events that were delivered to your webhooks in the past.</li>
+</ul>
 <h2 id='register-an-investor'>Register an Investor</h2>
 <p>To create new investors on our platform, you will use the <code>register</code> endpoint.</p>
 
-<p>This endpoint allows you to register an investor for your platform. If an investor matching the criteria you mentioned </p>
+<p>This endpoint allows you to register an investor for your platform. If an investor matching the criteria you mentioned exists already, that investor will be returned.</p>
 
-<p>This endpoint also allows you to pre-fill information about the investor so that they don&#39;t need to answer redundant questions.</p>
+<p>This endpoint also allows you to pre-fill information about the investor (so they will not be asked to re-enter that information).</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST /platform/investors/register</code></p>
 <h3 id='request-body-parameters'>Request Body Parameters</h3>
@@ -734,7 +886,7 @@ Legal Names must correspond exactly with the legal name that appears on an inves
 <tr>
 <td>investorType</td>
 <td>false</td>
-<td>a valid <code>investorType</code> value representing the legal entity the investor will be accredited as. Valid values are <code>INDIVIDUAL</code>, <code>JOINT</code>, <code>ENTITY</code>, and <code>TRUST</code>.</td>
+<td>an <code>investorType</code> value representing the type of entity the investor will be investing as. Valid values are <code>INDIVIDUAL</code>, <code>JOINT</code>, <code>ENTITY</code>, and <code>TRUST</code></td>
 </tr>
 <tr>
 <td>metadataTag</td>
@@ -742,7 +894,11 @@ Legal Names must correspond exactly with the legal name that appears on an inves
 <td>any string value you want to store as metadata on the user (EG – the id of their sponsor). This value is always returned with the user, and is passed along with billing events</td>
 </tr>
 </tbody></table>
-<h3 id='returns'>Returns</h3><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+<h3 id='returns'>Returns</h3>
+<blockquote>
+<p>Return format</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
     </span><span class="na">new</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;</span><span class="kc">true</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">new</span><span class="w"> </span><span class="err">investor</span><span class="w"> </span><span class="err">created</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="err">otherwise&gt;</span><span class="p">,</span><span class="w">
     </span><span class="na">investor</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Investor</span><span class="w"> </span><span class="err">model</span><span class="w"> </span><span class="err">that</span><span class="w"> </span><span class="err">was</span><span class="w"> </span><span class="err">found</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">created&gt;</span><span class="p">,</span><span class="w">
     </span><span class="na">portalLink</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;An</span><span class="w"> </span><span class="err">updated</span><span class="w"> </span><span class="err">portalLink</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">investor</span><span class="w"> </span><span class="err">found&gt;</span><span class="p">,</span><span class="w">
@@ -778,24 +934,16 @@ Legal Names must correspond exactly with the legal name that appears on an inves
 
 <p>In this case, the endpoint would send an error so as to avoid sending back the wrong account. </p>
 
-<p>To fix this problem, you could use the following POST body to resolve any ambiguity.</p>
+<p>To fix this problem, you could use the POST body in the example on the right to resolve any ambiguity.</p>
 
-<p>If Joe wanted to start another entity account to represent his managing a different investment company (&quot;New Investment Company, Inc.&quot;), you could register that account as shown in the post body to the right.</p>
+<p>If Joe wanted to start another entity account to represent his managing a different investment company (&quot;New Investment Company, Inc.&quot;), you could register that account as shown in the example&#39;s second post body.</p>
 
 <p>Note that metadata is not included in the &quot;specificity&quot; parameters. If you try to register an investor that already exists, but with a different metadata tag, the existing investor will be returned with the old metadata tag. To update a user&#39;s metadata, you will want to use the <code>/platform/admin/update-metadata/:investorId</code> endpoint.</p>
 <h2 id='query-your-investors'>Query your Investors</h2>
-<p>This endpoint lets you run queries against all of your platform&#39;s investors.</p>
-
-<p>This optionally allows you to request the investors associated with a particular set of email addresses or investor ids. It also allows you to filter the results to those with a particular status.</p>
-
-<p>Note that this approach does not create (or return) new portal links for the returned investors.</p>
-
-<p>Investors are returned in order of creation date (newest first).</p>
-
-<p>This is especially useful for building out internal and sponsor-facing dashboards on your platform.</p>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>POST /platform/investors/query</code></p>
-<h3 id='request-body-parameters-2'>Request Body Parameters</h3><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+<blockquote>
+<p>Request Body Format</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;integer</span><span class="w"> </span><span class="err">number</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">results</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">return</span><span class="p">,</span><span class="w"> </span><span class="err">default</span><span class="w"> </span><span class="mi">50</span><span class="err">&gt;</span><span class="p">,</span><span class="w">
     </span><span class="nl">"pageNumber"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;integer</span><span class="w"> </span><span class="err">number</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">page</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">return</span><span class="p">,</span><span class="w"> </span><span class="err">default</span><span class="w"> </span><span class="mi">0</span><span class="err">&gt;</span><span class="p">,</span><span class="w">
     </span><span class="nl">"investorIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&lt;investorIds</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">include&gt;</span><span class="p">],</span><span class="w">
@@ -803,18 +951,14 @@ Legal Names must correspond exactly with the legal name that appears on an inves
     </span><span class="nl">"filterToStatus"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;status</span><span class="w"> </span><span class="err">string</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">include&gt;</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><strong>Pagination</strong></p>
-
-<p><code>pageSize</code> and <code>pageNumber</code> allow you to paginate your search results. Note that your pages are 0-indexed – your 50 most recent results are on page 0.</p>
-
-<p>By default, we will return the first page, using a default value of 50 results per page.</p>
-<h3 id='returns-2'>Returns</h3><div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+<blockquote>
+<p>Return Format</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;number</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">results</span><span class="w"> </span><span class="err">returned&gt;</span><span class="p">,</span><span class="w">
     </span><span class="nl">"investors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&lt;Investor</span><span class="w"> </span><span class="err">Objects&gt;</span><span class="p">],</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>The query endpoint returns the number of results returned, as well as a list of the investors found by the query.</p>
-<h3 id='examples'>Examples</h3>
 <blockquote>
 <p>Examples of <code>/query</code> request bodies </p>
 </blockquote>
@@ -857,11 +1001,43 @@ Legal Names must correspond exactly with the legal name that appears on an inves
 </span><span class="p">{</span><span class="w">
     </span><span class="nl">"emails"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"sample-investor@example.com"</span><span class="p">],</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='convenience-endpoints'>Convenience Endpoints</h2>
-<p>There are a few convenience endpoints for fetching information about your investors by <code>investorId</code>.  Use of these endpoints is a one reason to store your platform users&#39; <code>investorId</code> in your database alongside their other account information.</p>
+</span></code></pre></div>
+<p>This endpoint lets you run queries against all of your platform&#39;s investors.</p>
+
+<p>This optionally allows you to request the investors associated with a particular set of email addresses or investor ids. It also allows you to filter the results to those with a particular status.</p>
+
+<p>Note that this approach does not create (or return) new portal links for the returned investors.</p>
+
+<p>Investors are returned in order of creation date (newest first).</p>
+
+<p>This is especially useful for building out internal and sponsor-facing dashboards on your platform.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST /platform/investors/query</code></p>
+<h3 id='request-body-parameters-2'>Request Body Parameters</h3>
+<p><strong>Pagination</strong></p>
+
+<p><code>pageSize</code> and <code>pageNumber</code> allow you to paginate your search results. Note that your pages are 0-indexed – your 50 most recent results are on page 0.</p>
+
+<p>By default, we will return the first page, using a default value of 50 results per page.</p>
+<h3 id='returns-2'>Returns</h3>
+<p>The query endpoint returns the number of results returned, as well as a list of the investors found by the query.</p>
+<h3 id='examples'>Examples</h3>
+<p>See the code tab to the right for examples of Query post request bodies, and descriptions of what each would return.</p>
+<h2 id='convenience-endpoints'>Convenience Endpoints</h2>
+<p>With just <code>register</code> and <code>query</code>, the platform API is functionally complete. However, there are a few convenience endpoints for fetching information about your investors by <code>investorId</code>. </p>
+
+<p>Use of these endpoints is a one reason to store your platform users&#39; <code>investorId</code> in your database alongside their other account information.</p>
 
 <hr>
 <h3 id='get-platform-investors-lookup-investorid'><code>GET /platform/investors/lookup/:investorId</code></h3>
+<blockquote>
+<p>Return format of <code>/platform/investor/lookup/:investorId</code></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="na">investor</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Investor</span><span class="w"> </span><span class="err">Object&gt;</span><span class="p">,</span><span class="w">
+    </span><span class="na">portalLink</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;updated</span><span class="w"> </span><span class="err">portal</span><span class="w"> </span><span class="err">link</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">your</span><span class="w"> </span><span class="err">investor&gt;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <p>Fetches all of an investor&#39;s accreditation information by their <code>investorId</code>.</p>
 
 <p>Note that this returns the investor object, as well as an updated portal link.</p>
@@ -882,18 +1058,17 @@ Legal Names must correspond exactly with the legal name that appears on an inves
 
 <p><strong>Returns</strong></p>
 
-<blockquote>
-<p>Return format of <code>/platform/investor/lookup/:investorId</code></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
-    </span><span class="na">investor</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Investor</span><span class="w"> </span><span class="err">Object&gt;</span><span class="p">,</span><span class="w">
-    </span><span class="na">portalLink</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;updated</span><span class="w"> </span><span class="err">portal</span><span class="w"> </span><span class="err">link</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">your</span><span class="w"> </span><span class="err">investor&gt;</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
 <p>A json object with the investor object and an updated <code>portalLink</code> for that user.</p>
 
 <hr>
 <h3 id='get-platform-status-lookup-investorid'><code>GET /platform/status/lookup/:investorId</code></h3>
+<blockquote>
+<p>Return format of <code>/platform/status/lookup/:investorId</code></p>
+</blockquote>
+<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
+    </span><span class="na">status</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Status</span><span class="w"> </span><span class="err">Object&gt;</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <p>Fetches the status of an investor by their <code>investorId</code>.</p>
 
 <p><strong>Request Params</strong></p>
@@ -912,33 +1087,10 @@ Legal Names must correspond exactly with the legal name that appears on an inves
 
 <p><strong>Returns</strong></p>
 
-<blockquote>
-<p>Return format of <code>/platform/status/lookup/:investorId</code></p>
-</blockquote>
-<div class="highlight"><pre class="highlight json-doc tab-json-doc"><code><span class="p">{</span><span class="w">
-    </span><span class="na">status</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Status</span><span class="w"> </span><span class="err">Object&gt;</span><span class="p">,</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
 <p>A json object with the current status of this investor.</p>
 
 <hr>
 <h3 id='get-platform-accreditations-lookup-current-investorid'><code>GET /platform/accreditations/lookup-current/:investorId</code></h3>
-<p><strong>Request Params</strong></p>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>investorId</td>
-<td>The investor Id of an investor from your platform</td>
-</tr>
-</tbody></table>
-
-<p><strong>Returns</strong></p>
-
 <blockquote>
 <p>Return format of <code>/platform/accreditations/lookup-current/:investorId</code></p>
 </blockquote>
@@ -946,10 +1098,6 @@ Legal Names must correspond exactly with the legal name that appears on an inves
     </span><span class="na">currentAccreditation</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;Accreditation</span><span class="w"> </span><span class="err">Object</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">none</span><span class="w"> </span><span class="err">current&gt;</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>A json object with the current accreditation for an investor, if there is one. Otherwise, <code>null</code>.</p>
-
-<hr>
-<h3 id='get-platform-accreditations-lookup-all-investorid'><code>GET /platform/accreditations/lookup-all/:investorId</code></h3>
 <p><strong>Request Params</strong></p>
 
 <table><thead>
@@ -966,6 +1114,10 @@ Legal Names must correspond exactly with the legal name that appears on an inves
 
 <p><strong>Returns</strong></p>
 
+<p>A json object with the current accreditation for an investor, if there is one. Otherwise, <code>null</code>.</p>
+
+<hr>
+<h3 id='get-platform-accreditations-lookup-all-investorid'><code>GET /platform/accreditations/lookup-all/:investorId</code></h3>
 <blockquote>
 <p>Return format of <code>/platform/accreditations/lookup-all/:investorId</code></p>
 </blockquote>
@@ -973,6 +1125,22 @@ Legal Names must correspond exactly with the legal name that appears on an inves
     </span><span class="na">accreditations</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&lt;Accreditation</span><span class="w"> </span><span class="err">Object&gt;</span><span class="p">],</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
+<p><strong>Request Params</strong></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>investorId</td>
+<td>The investor Id of an investor from your platform</td>
+</tr>
+</tbody></table>
+
+<p><strong>Returns</strong></p>
+
 <p>A json object with an array of all accreditations (past and present) for this particular investor. No order is guaranteed.</p>
 <h2 id='download-an-accreditation-letter'>Download an accreditation letter</h2>
 <p>Download an accreditation letter as a PDF.</p>
@@ -994,6 +1162,8 @@ Legal Names must correspond exactly with the legal name that appears on an inves
 <p>Downloads a PDF of the associated accreditation letter.</p>
 <h2 id='admin-and-event-endpoints'>Admin and Event Endpoints</h2>
 <p>There are a few simple endpoints for administrative tasks – testing your connection, setting metadata tags on investors, and working with our webhooks.</p>
+
+<hr>
 <h3 id='get-platform-admin-ping'><code>GET /platform/admin/ping</code></h3>
 <p>Tests your connection with our API, returning <code>{ success: true }</code> if your API secret key has successfully connected you to the Accreditations API.</p>
 
@@ -1033,8 +1203,6 @@ Legal Names must correspond exactly with the legal name that appears on an inves
 </tr>
 </tbody></table>
 
-<p><strong>Request Body Parameters</strong></p>
-
 <p><strong>Returns</strong></p>
 
 <p>A json object with the updated investor object.</p>
@@ -1060,8 +1228,6 @@ Legal Names must correspond exactly with the legal name that appears on an inves
 <p>If there is no webhook url set, we will not deliver events. We will still keep record of them on our servers.</p>
 
 <p>The url you set up on your API should be able to accept a POST request that accepts a JSON object with an event object formatted as such</p>
-
-<p><strong>Request Body Parameters</strong></p>
 
 <hr>
 <h3 id='post-platform-events-query'><code>POST /platform/events/query</code></h3>
@@ -1093,10 +1259,6 @@ Legal Names must correspond exactly with the legal name that appears on an inves
 <p><code>pageSize</code> and <code>pageNumber</code> allow you to paginate your search results. Note that your pages are 0-indexed – your 50 most recent results are on page 0.</p>
 
 <p>By default, we will return the first page, using a default value of 50 results per page.</p>
-
-<p><strong>Returns</strong></p>
-
-<p><strong>Examples</strong></p>
 
 <blockquote>
 <p>Some sample queries. These JSON objects represent the body of the POST request.</p>
