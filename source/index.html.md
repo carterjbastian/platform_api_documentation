@@ -37,22 +37,18 @@ An integrated platform experience allows you and your sponsors to automate, over
 - Less friction for investors and less drop-off due to accreditation requirements.
 - Less room for potentially-costly accreditation errors.
 - Reduced cognitive overhead and manual work for your customer service, investor relations, and legal teams.
-- Decreased spending spending on general or outside council.
+- Decreased spending on general or outside council.
 
 **Highlights of the integration experience:**
 
-- **Quick set up** – You can start your investors getting accredited by writing a API endpoint on your server, and then adding a button to your platform.
-- **No Investor Registration** – You use our API to register your users as investors with Check Investor Status. This means your investors never have to create a Check Investor Status account. 
-- **No Investor Data Re-entry** – You can pre-fill investor information when you register (email address, type of legal entity, legal name) them. That way, investors don't need to re-enter data you already have.
-- **Automated Follow-up and Re-Review Processes** – Did an investor make a mistake in their documentation? Have they started but not finished their process? We'll followup with them and re-review when they fix their documentation.
+- **Quick set up** – Set up is as simple as adding one API endpoint to your server and retrieving a URL for your investor. You control the UX of how the investor sees that button.
+- **No Investor Registration** – You use our API to register your users as investors with Check Investor Status. This means your investors never have to create a Check Investor Status account.
+- **No Investor Data Re-entry** – You can pre-fill investor information when you register (email address, type of legal entity, legal name) on your investors' behalf. They don't need to re-enter data you already have.
+- **Automated Follow-up and Re-Rreview Processes** – Did an investor make a mistake in their documentation? Have they started but not finished their process? We'll followup with them and re-review when they fix their documentation.
 - **Programmatic Access to Accreditation Info** – You can check the status of your investors as they proceed through the platform, or even download a PDF of the accreditation letter we issue for your accredited investors.
 - **Ongoing Support and Development** – We're in active development of this product. Have a feature request? Not sure how something works? Just ask – if we haven't built it already, we can likely add support for it soon.
 
 # Getting Started
-
-There are only 3 steps to setting up with Check Investor Status.
-
-## Request a Platform Account
 
 Contact [carter@checkinvestorstatus.com](mailto:carter@checkinvestorstatus.com) to set up a platform integration account.
 
@@ -61,8 +57,6 @@ Once we've set up your platform account, you'll be given a **Platform API Secret
 **Not sure how to proceed?**
 
 If you have a use case and you're not sure if our API supports it, reach out to [Carter](mailto:carter@checkinvestorstatus.com). He can help advise your technical team on how to make the Check Investor Status platform integration work for you.
-
-
 
 # Authentication
 
@@ -88,10 +82,16 @@ Note that, for security purposes, "portal Links" are expired and regenerated eve
 
 It is not recommended to store a portal link in persistent storage (EG on your database). Instead, we highly recommend storing the investor's `investorId` on your database's representation of your user. With this, you can dynamically request a new portal link for the user when rendering the "Get Accredited" button.
 
+<aside class="success">
+Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll be supporting a "Pure-API" solution that will let you handle the information intake without using our portal UX. Reach out to support with any questions or to be included in the beta for that workflow.
+</aside>
+
 
 # Data Models 
 
 ## Investor Model
+
+> Format of the user model
 
 ```json-doc
 {
@@ -100,30 +100,32 @@ It is not recommended to store a portal link in persistent storage (EG on your d
 	creationDate: <Date the account was created>,
 	
 	// Investor Information
-	email: <the email address for reaching the investor>,
-	legalName: <the legal name of the investor>,
-	investorType: <the selected entity type for this investor>,
-	verificationMethod: <the selected verification method (see below)>,
-	metadataTag: <optional platform-supplied metadata stored on investor>,
+	email: <email address for the investor>,
+	legalName: <legal name of the investor>,
+	investorType: <entity type for the investor>,
+	verificationMethod: <selected verification method (see below)>,
+	metadataTag: <optional platform-supplied metadata for the investor>,
 	dependentOnInvestors: [
 		<investorId of an investor whose accreditation impacts this investor's>
 	],
 
 	// Status and Accreditation information
 	status: <a status object for this user (see below)>,
-	accreditations: [<All accreditation objects for this user (see below)>],
+	accreditations: [<An accreditation object for this user (see below)>],
 }
 ```
 
-An investor represents a single account in our API that can be an accredited investor. One person in your platform (eg. John Smith) may have multiple "investor accounts" at once – for example, if they are an individual investor, but also manage a company that invests.
+An investor represents a single account in our API that can be an accredited investor. One user in your platform (eg. John Smith) may have multiple "investor accounts" at once – for example, if they are an individual investor, but also manage a company that invests.
 
 An investor may be have multiple recorded accreditations. In fact, because accreditations expire, most repeat investors will have multiple accreditations associated with them.
 
 
-**Platform-supplied fields (Pre-filled information)**
+### Platform-supplied fields (Pre-filled information)
 
 
 Our API allows platforms to automatically pre-fill the `email`,  `legalName`, and `investorType` of their investors' accounts. However, the combination of those three fields must be unique – no two investor accounts can have the same combination of `(email, legalName, investorType)`.
+
+### Investor Model Fields
 
 An investor model has the following structure:
 
@@ -136,13 +138,14 @@ We recommend that after you create an investor, you store their `investorId` wit
 
 **`dateCreated`**
 
-Date when the investor's Check Investor Status investor account was created.
+Date when the investor's Check Investor Status account was registered.
 
 **`email`**
 
-The email address we will use to contact the user. They are automatically emailed when their accreditation status changes, or if we need updated or additional documentation.
+The email address we will use to contact the user. They are automatically emailed when their accreditation status changes, or if we need updated / additional documentation.
 
 **`legalName`**
+
 Legal Names must correspond exactly with the legal name that appears on an investor's provided documentation. 
 
 For example:
@@ -158,56 +161,62 @@ This represents the type of person or entity under which the investor is acting.
 
 Investor type must be one of the following values:
 
-- **`INDIVIDUAL`** – a natural person investing as themself.
-- **`JOINT`** – a married couple or spousal equivalent investing together.
-- **`ENTITY`** – a business entity investing as a legal person.
-- **`TRUST`** – a trust investing as a legal person.
+Value | Description
+--------- | -----------
+`INDIVIDUAL` | a natural person investing as themself
+`JOINT` | a married couple or spousal equivalent investing together
+`ENTITY` | a business entity (EG an LLC) investing as a legal person
+`TRUST` | a trust investing as a legal person
 
 **`verificationMethod`**
 
-Verification Method represents the qualification under which the investor qualifies as an "accredited investor". To learn more about the specifics of how this works, request a copy of our Legal and Compliance documentation.
+Verification Method represents the qualification under which the investor qualifies as an "accredited investor." To learn more about the specifics of how this works, request a copy of our Regulatory and Compliance documentation.
 
 The following are the possible values of `verificationMethod`:
 
-- **`LETTER`** - Individual qualified by letter from qualified professional
-- **`INCOME`** - Individual qualified by annual income
-- **`FINANCE_PROFESSIONAL`** - Individual qualified by professional financial qualifications
-- **`DIRECTOR`** - Individual qualified as a director at a sponsor (Accreditation scoped to the sponsor level – See notes below).
-- **`EMPLOYEE`** - Individual qualified as a knowledgeable employee for a deal (Accreditation scoped to the deal level – See notes below).
-- **`NET_WORTH`** - Individual qualified by their net worth
-- **`NONE_OF_THE_ABOVE`** - Individual qualified by extenuating circumstance (Rare – See notes below)
-- **`JOINT_LETTER`** - Spousal couple qualified by letter from qualified professional
-- **`JOINT_INCOME`** - Spousal couple qualified by annual income
-- **`JOINT_NET_WORTH`** - Spousal couple qualified by net worth
-- **`JOINT_NONE_OF_THE_ABOVE`** - Spousal couple qualified by extenuating circumstance (Rare – see notes below)
-- **`ENTITY_LETTER`** - Entity qualified by letter from qualified professional
-- **`ENTITY_NET_WORTH`** - Entity qualified by assets under management
-- **`ENTITY_STATUS`** - Entity qualified by special regulatory status
-- **`ENTITY_SPECIAL`** - Entity qualified by combination of status and assets under management
-- **`ENTITY_FIDUCIARY_EBP`** - Entity qualified as fiduciary-led employee benefit program
-- **`ENTITY_SELF_DIRECTED_EBP`** - Entity qualified as self-directed Employee Benefit Plan
-- **`ENTITY_ACCREDITED_INDIVIDUALS`** - Entity qualified as composed of solely accredited equity owners
-- **`ENTITY_NONE_OF_THE_ABOVE`** - Entity qualified by extenuating circumstances (Rare – see notes below)
-- **`TRUST_LETTER`** - Trust qualified by letter from qualified professional
-- **`TRUST_NET_WORTH`** - Trust qualified by assets under management
-- **`TRUST_ACCREDITED_INDIVIDUALS`** - Trust qualified as being composed solely of accredited "Equity Owners" (SEC's definition here is wonky, see Regulatory Compliance documentation for more details)
-- **`TRUST_NONE_OF_THE_ABOVE`** - Trust qualified by extenuating circumstances (Rare – see notes below)
+Value | Description
+--------- | -----------
+`LETTER` | Individual qualified by letter from qualified professional
+`INCOME` | Individual qualified by annual income
+`FINANCE_PROFESSIONAL` | Individual qualified by professional financial qualifications
+`DIRECTOR` | Individual qualified as a director at a sponsor
+`EMPLOYEE` | Individual qualified as a knowledgeable employee for a deal
+`NET_WORTH` | Individual qualified by their net worth
+`NONE_OF_THE_ABOVE` | Individual qualified by extenuating circumstance
+`JOINT_LETTER` | Spousal couple qualified by letter from qualified professional
+`JOINT_INCOME` | Spousal couple qualified by annual income
+`JOINT_NET_WORTH` | Spousal couple qualified by net worth
+`JOINT_NONE_OF_THE_ABOVE` | Spousal couple qualified by extenuating circumstance
+`ENTITY_LETTER` | Entity qualified by letter from qualified professional
+`ENTITY_NET_WORTH` | Entity qualified by assets under management
+`ENTITY_STATUS` | Entity qualified by special regulatory status
+`ENTITY_SPECIAL` | Entity qualified by combination of status and assets under management
+`ENTITY_FIDUCIARY_EBP` | Entity qualified as fiduciary-led employee benefit program
+`ENTITY_SELF_DIRECTED_EBP` | Entity qualified as self-directed Employee Benefit Plan
+`ENTITY_ACCREDITED_INDIVIDUALS` | Entity qualified as composed of solely accredited equity owners
+`ENTITY_NONE_OF_THE_ABOVE` | Entity qualified by extenuating circumstances
+`TRUST_LETTER` | Trust qualified by letter from qualified professional
+`TRUST_NET_WORTH` | Trust qualified by assets under management
+`TRUST_ACCREDITED_INDIVIDUALS` | Trust qualified as being composed solely of accredited "Equity Owners" (SEC's definition here is wonky, see Regulatory Compliance documentation for more details)
+`TRUST_NONE_OF_THE_ABOVE` | Trust qualified by extenuating circumstances
 
 **`metadataTag`**
 
 This is a metadata string you can store on the investor that will be returned with the investor, as well as with billing events associated with them.
 
-The most common use case is storing a sponsor identifier, so that you can track which sponsors to bill for which events. EG, if an investor is clicks "Get Accredited" on the invest page for a particular investment, you may add an identifier for that investment or sponsor as the `metadataTag` for that user.
+The most common use case is storing a sponsor identifier, so that you can track which sponsors to bill for which events. For example, if an investor is clicks "Get Accredited" on the invest page for a particular investment, you may add an identifier for that investment or sponsor as the `metadataTag` for that user.
 
-This field is managed entirely by the platform – we provide you with the ability to set and update this field, but its use and management is up to you. 
+This field is managed entirely by the platform – we provide you with the ability to set and update this field, but its use and management is up to you.
 
 **`dependentOnInvestors`**
 
-This is an array of  `investorId`s for investors whose accreditations this (the parent investor) is waiting on. 
+This is an array of  `investorId`s for investors whose accreditations this investor (AKA the parent investor) is waiting on. 
 
-For example, if this investor is an Entity or Trust who is accredited by nature of each of their entity owners being accredited, this list would have the investorIds of each of the investors being waited on.
+For example, if this investor is an entity or trust who is accredited by nature of each of their entity owners being accredited, this list would have the investorIds of each of the investors being waited on.
 
 ## Status Model
+
+> Format of the Status Model
 
 ```json-doc
 {
@@ -215,6 +224,7 @@ For example, if this investor is an Entity or Trust who is accredited by nature 
 	expiration: <Date when the status expires, or null>
 }
 ```
+
 > Status Model Examples:
 
 ```json-doc
@@ -244,46 +254,53 @@ The status model represents where the investor currently is in their accreditati
 
 Where the investor is in the accreditation pipeline. Possible values are:
 
-- `NOT_FOUND` – We did not find an investor associated with that email in our records.
-- `ACTION_NEEDED` – The investor has started the accreditation process but has not completed it.
-- `IN_REVIEW` – The investor has uploaded documentation that is under legal review by our team.
-- `MORE_INFO` – We've reached out to the investor for more information or additional documentation.
-- `WAITING` – The investor accreditation is currently blocked on other accreditations (EG an entity waiting on the accreditations of its equity owners)
-- `ACCREDITED` – The investor has a current, valid accreditation. 
-- `EXPIRED` – The investor has a current, valid accreditation. 
-- `FAILED` – We have determined that we are unable to verify this investor's accreditation
+Value | Description
+--------- | -----------
+`NOT_FOUND` | We did not find an investor associated with that email in our records.
+`ACTION_NEEDED` | The investor has started the accreditation process but has not completed it.
+`IN_REVIEW` | The investor has uploaded documentation that is under legal review by our team.
+`MORE_INFO` | We've reached out to the investor for more information or additional documentation.
+`WAITING` | The investor accreditation is currently blocked on other accreditations (EG an entity waiting on the accreditations of its equity owners)
+`ACCREDITED` | The investor has a current, valid accreditation. 
+`EXPIRED` | The investor has a current, valid accreditation. 
+`FAILED` | We have determined that we are unable to verify this investor's accreditation
 
 **`expiration`** 
 
 If the investor is currently accredited, this field will contain the date that the current accreditation expires. 
 
-If the investor is not accredited, this field will contain the date their current status expires and their investor account is archived. Some statuses do not expire, but we can only hold information on an investor that begins an accreditation for 90 days.
+If the investor is not accredited, this field will contain the date their current status expires and their investor account is archived. Some statuses do not expire, but we can only hold information on an investor for 90 days.
 
 
 
 
 ## Accreditation Model
 
+> Format of the Accreditation Model
+
 ```json-doc
 {
-	accreditationId: <internal identifier of the accreditation>,
-	verificationMethod: <the selected verification method (see below)>,
+	accreditationId: <Internal identifier of the accreditation>,
+	verificationMethod: <Selected verification method>,
 	dateCreated: <Date of creation of the accreditation>,
 	expirationDate: <Date the letter expires>,
 }
 ```
+
 > Accreditation Model Examples:
 
 ```json-doc
-// A Current Accreditation
+// A current Accreditation (until 6/14/2023)
+// Note that a real accreditation wouldn't expire
+// so far out from when it was issued.
 {
 	accreditationId: "623139b30bca64b9298bc746",
 	verificationMethod: "ENTITY_NET_WORTH",
 	dateCreated: "2022-03-16T01:13:23.040Z",
-	expirationDate: "2022-06-14T01:13:23.040Z",
+	expirationDate: "2023-06-14T01:13:23.040Z",
 }
 
-// An expired Accreditation
+// An expired Accreditation (as of 3/4/2022)
 {
 	accreditationId: "61e7b43c10a0f6e3830d0512",
 	verificationMethod: "FINANCIAL_PROFESSIONAL",
@@ -315,6 +332,8 @@ The date this accreditation expires, and can no longer be used to verify the acc
 
 ## Event Model
 
+> Format of the Event Model
+
 ```json-doc
 {
 	date: <Date of creation of the event>,
@@ -327,16 +346,18 @@ The date this accreditation expires, and can no longer be used to verify the acc
 This represents an accreditation event that has occurred. We log all events, and deliver them to you via a webhook that you can configure. Generally, we send events when either:
 
 1.  A billable event occurs, or 
-2.  An accreditation process is completed (successfully or not)
+2.  An accreditation process is completed (successfully or otherwise)
 
 
 The 3 types of events you may receive are:
 
-- **`BILLABLE_EVENT`** – an investor's accreditation application has moved to legal review, and their 
-- **`ACCREDITATION_SUCCEEDED`** - an investor's accreditation application was approved, and an accreditation letter was issued.
-- **`ACCREDITATION_FAILED`** - an investor's accreditation application was denied, and we have determined that we cannot issue an accreditation letter.
+Type | Description
+--------- | -----------
+`BILLABLE_EVENT` | an investor's accreditation application has been completed and sent to legal review
+`ACCREDITATION_SUCCEEDED` | an investor's accreditation application was approved, and an accreditation letter was issued
+`ACCREDITATION_FAILED` | an investor's accreditation application was denied or expired due to inactivity
 
-To set up your webhook receiver, use the `platform/admin/update-webhook-url` endpoint (documented below). The url provided should be able to accept 
+To set up your webhook receiver, use the `platform/admin/update-webhook-url` endpoint (documented below).
 
 We currently do not retry delivery on webhook events that are not delivered successfully, but you can retroactively pull a list of your events from the last month with the `platform/events/query` endpoint (documented below).
 
@@ -347,20 +368,22 @@ We currently do not retry delivery on webhook events that are not delivered succ
 We provide API access to read and modify your investors' accreditation data programmatically.
 
 Some common use cases for the Accreditation API include:
+
 * Registering your users as Investors in our platform.
-* Adding information about accreditation data to your investors' user account within your platform.
-* Checking the status of an investor's accreditation before allowing them to perform certain actions or see certain views on your platform
-* Automatically creating sponsor accounts when a new issuer joins your platform
-* Creating custom dashboards for your internal team
+* Fetching a portal link for your user to click.
+* Querying all of your investors, or events that have occurred.
+* Getting the accreditation or status associated with a user in your platform.
+* Creating custom dashboards for your sponsors or internal teams.
+* Updating your webhooks or querying events that were delivered to your webhooks in the past.
 
 
 ## Register an Investor
 
 To create new investors on our platform, you will use the `register` endpoint.
 
-This endpoint allows you to register an investor for your platform. If an investor matching the criteria you mentioned 
+This endpoint allows you to register an investor for your platform. If an investor matching the criteria you mentioned exists already, that investor will be returned.
 
-This endpoint also allows you to pre-fill information about the investor so that they don't need to answer redundant questions.
+This endpoint also allows you to pre-fill information about the investor (so they will not be asked to re-enter that information).
 
 ### HTTP Request
 
@@ -372,10 +395,12 @@ Parameter | Required | Description
 --------- | ------- | -----------
 email | true | a valid email address of an investor in your platform
 legalName | false | a string containing the exact legal name of the investor in your platform
-investorType | false | a valid `investorType` value representing the legal entity the investor will be accredited as. Valid values are `INDIVIDUAL`, `JOINT`, `ENTITY`, and `TRUST`.
+investorType | false | an `investorType` value representing the type of entity the investor will be investing as. Valid values are `INDIVIDUAL`, `JOINT`, `ENTITY`, and `TRUST`
 metadataTag | false | any string value you want to store as metadata on the user (EG – the id of their sponsor). This value is always returned with the user, and is passed along with billing events
 
 ### Returns
+
+> Return format
 
 ```json-doc
 {
@@ -419,10 +444,9 @@ If you were to hit the registration endpoint with: `{ "email": "joesmith@gmail.c
 
 In this case, the endpoint would send an error so as to avoid sending back the wrong account. 
 
-To fix this problem, you could use the following POST body to resolve any ambiguity.
+To fix this problem, you could use the POST body in the example on the right to resolve any ambiguity.
 
-If Joe wanted to start another entity account to represent his managing a different investment company ("New Investment Company, Inc."), you could register that account as shown in the post body to the right.
-
+If Joe wanted to start another entity account to represent his managing a different investment company ("New Investment Company, Inc."), you could register that account as shown in the example's second post body.
 
 
 Note that metadata is not included in the "specificity" parameters. If you try to register an investor that already exists, but with a different metadata tag, the existing investor will be returned with the old metadata tag. To update a user's metadata, you will want to use the `/platform/admin/update-metadata/:investorId` endpoint.
@@ -430,22 +454,7 @@ Note that metadata is not included in the "specificity" parameters. If you try t
 
 ## Query your Investors
 
-This endpoint lets you run queries against all of your platform's investors.
-
-This optionally allows you to request the investors associated with a particular set of email addresses or investor ids. It also allows you to filter the results to those with a particular status.
-
-Note that this approach does not create (or return) new portal links for the returned investors.
-
-Investors are returned in order of creation date (newest first).
-
-This is especially useful for building out internal and sponsor-facing dashboards on your platform.
-
-### HTTP Request
-
-`POST /platform/investors/query`
-
-
-### Request Body Parameters
+> Request Body Format
 
 ```json-doc
 {
@@ -457,13 +466,7 @@ This is especially useful for building out internal and sponsor-facing dashboard
 }
 ```
 
-**Pagination**
-
-`pageSize` and `pageNumber` allow you to paginate your search results. Note that your pages are 0-indexed – your 50 most recent results are on page 0.
-
-By default, we will return the first page, using a default value of 50 results per page.
-
-### Returns
+> Return Format
 
 ```json-doc
 {
@@ -471,11 +474,6 @@ By default, we will return the first page, using a default value of 50 results p
 	"investors": [<Investor Objects>],
 }
 ```
-
-The query endpoint returns the number of results returned, as well as a list of the investors found by the query.
-
-
-### Examples
 
 > Examples of `/query` request bodies 
 
@@ -522,13 +520,57 @@ The query endpoint returns the number of results returned, as well as a list of 
 ```
 
 
+This endpoint lets you run queries against all of your platform's investors.
+
+This optionally allows you to request the investors associated with a particular set of email addresses or investor ids. It also allows you to filter the results to those with a particular status.
+
+Note that this approach does not create (or return) new portal links for the returned investors.
+
+Investors are returned in order of creation date (newest first).
+
+This is especially useful for building out internal and sponsor-facing dashboards on your platform.
+
+### HTTP Request
+
+`POST /platform/investors/query`
+
+
+### Request Body Parameters
+
+**Pagination**
+
+`pageSize` and `pageNumber` allow you to paginate your search results. Note that your pages are 0-indexed – your 50 most recent results are on page 0.
+
+By default, we will return the first page, using a default value of 50 results per page.
+
+### Returns
+
+The query endpoint returns the number of results returned, as well as a list of the investors found by the query.
+
+
+### Examples
+
+See the code tab to the right for examples of Query post request bodies, and descriptions of what each would return.
+
+
 ## Convenience Endpoints
 
-There are a few convenience endpoints for fetching information about your investors by `investorId`.  Use of these endpoints is a one reason to store your platform users' `investorId` in your database alongside their other account information.
+With just `register` and `query`, the platform API is functionally complete. However, there are a few convenience endpoints for fetching information about your investors by `investorId`. 
+
+Use of these endpoints is a one reason to store your platform users' `investorId` in your database alongside their other account information.
 
 ---
 
 ### `GET /platform/investors/lookup/:investorId`
+
+> Return format of `/platform/investor/lookup/:investorId`
+
+```json-doc
+{
+	investor: <Investor Object>,
+	portalLink: <updated portal link for your investor>
+}
+```
 
 Fetches all of an investor's accreditation information by their `investorId`.
 
@@ -542,20 +584,19 @@ investorId | The investor Id of an investor from your platform
 
 **Returns**
 
-> Return format of `/platform/investor/lookup/:investorId`
-
-```json-doc
-{
-	investor: <Investor Object>,
-	portalLink: <updated portal link for your investor>
-}
-```
-
 A json object with the investor object and an updated `portalLink` for that user.
 
 ---
 
 ### `GET /platform/status/lookup/:investorId`
+
+> Return format of `/platform/status/lookup/:investorId`
+
+```json-doc
+{
+	status: <Status Object>,
+}
+```
 
 Fetches the status of an investor by their `investorId`.
 
@@ -567,27 +608,11 @@ investorId | The investor Id of an investor from your platform
 
 **Returns**
 
-> Return format of `/platform/status/lookup/:investorId`
-
-```json-doc
-{
-	status: <Status Object>,
-}
-```
-
 A json object with the current status of this investor.
 
 ---
 
 ### `GET /platform/accreditations/lookup-current/:investorId`
-
-**Request Params**
-
-Parameter | Description
---------- | -----------
-investorId | The investor Id of an investor from your platform
-
-**Returns**
 
 > Return format of `/platform/accreditations/lookup-current/:investorId`
 
@@ -597,12 +622,6 @@ investorId | The investor Id of an investor from your platform
 }
 ```
 
-A json object with the current accreditation for an investor, if there is one. Otherwise, `null`.
-
----
-
-### `GET /platform/accreditations/lookup-all/:investorId`
-
 **Request Params**
 
 Parameter | Description
@@ -611,6 +630,12 @@ investorId | The investor Id of an investor from your platform
 
 **Returns**
 
+A json object with the current accreditation for an investor, if there is one. Otherwise, `null`.
+
+---
+
+### `GET /platform/accreditations/lookup-all/:investorId`
+
 > Return format of `/platform/accreditations/lookup-all/:investorId`
 
 ```json-doc
@@ -618,6 +643,14 @@ investorId | The investor Id of an investor from your platform
 	accreditations: [<Accreditation Object>],
 }
 ```
+
+**Request Params**
+
+Parameter | Description
+--------- | -----------
+investorId | The investor Id of an investor from your platform
+
+**Returns**
 
 A json object with an array of all accreditations (past and present) for this particular investor. No order is guaranteed.
 
@@ -645,6 +678,8 @@ Downloads a PDF of the associated accreditation letter.
 ## Admin and Event Endpoints
 
 There are a few simple endpoints for administrative tasks – testing your connection, setting metadata tags on investors, and working with our webhooks.
+
+---
 
 ###  `GET /platform/admin/ping`
 
@@ -682,8 +717,6 @@ Parameter | Description
 --------- | -----------
 investorId | The investor Id of an investor from your platform
 
-**Request Body Parameters**
-
 
 **Returns**
 
@@ -714,8 +747,6 @@ Updates your platform's webhook URL for recieving events.
 If there is no webhook url set, we will not deliver events. We will still keep record of them on our servers.
 
 The url you set up on your API should be able to accept a POST request that accepts a JSON object with an event object formatted as such
-
-**Request Body Parameters**
 
 ---
 
@@ -752,11 +783,6 @@ Events are returned in order of creation date (newest first).
 `pageSize` and `pageNumber` allow you to paginate your search results. Note that your pages are 0-indexed – your 50 most recent results are on page 0.
 
 By default, we will return the first page, using a default value of 50 results per page.
-
-**Returns**
-
-
-**Examples**
 
 > Some sample queries. These JSON objects represent the body of the POST request.
 
