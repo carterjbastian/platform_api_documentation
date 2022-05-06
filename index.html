@@ -383,13 +383,10 @@
                   </li>
               </ul>
           </li>
-          <li>
-            <a href="#documentation-todos" class="toc-h1 toc-link" data-title="Documentation TODOs">Documentation TODOs</a>
-          </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href=''>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a></li>
+            <li><a href='mailto:carter@checkinvestorstatus.com'>Request a Developer Key</a></li>
+            <li><a href='https://www.platformintegrationdemo.com/'>Live, Interactive Integration Demo</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
@@ -1290,15 +1287,23 @@ Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll
 </span></code></pre></div>
 <p>We can put this all together in a comprehensive example by demonstrating how we could provide a user on your platform with a button that links them to their user portal.</p>
 
-<p>Let&#39;s assume that in your database, you have an account model that looks as formatted in the snippet on the right.</p>
+<p><strong>You can see this code in action:</strong></p>
 
-<p>In this example, we&#39;ll assume you have a react-based web application and a node express API, but this general approach can be taken regardless of platform, language, or infrastructure.</p>
+<ul>
+<li>This example lives in a live, interactive demo at <a href="https://www.platformintegrationdemo.com/">PlatformIntegrationDemo.com</a>. </li>
+<li>The front-end code we write in this example lives at <a href="https://github.com/carterjbastian/my-investment-platform">this public repo</a></li>
+<li>The back-end code we write in this example lives at <a href="https://github.com/carterjbastian/my-investment-platform-api">this public repo</a></li>
+</ul>
+
+<p>For this example, let&#39;s assume that your platform is named <strong>MyInvestmentPlatform</strong>. In your database, you have an account model that looks as formatted in the snippet on the right.</p>
+
+<p>We&#39;ll be implementing your user-facing front-end in as a react-based web application, and we&#39;ll be implementing your web server as endpoints in a node/express API. However, this general approach and structure can be taken regardless of platform, language, or infrastructure.</p>
 <h3 id='the-overall-information-flow-is-as-follows'>The overall information flow is as follows:</h3>
 <ol>
 <li>Your user opens a page on your front end webapp </li>
-<li>Your webapp requests a portal-id from your web server</li>
-<li>Your web server hits the <code>/platform/investors/register</code> of the Check Investor Status API and returns the platform portalLink</li>
-<li>Your webapp uses the portal-link as the <code>href</code> in the rendered button.</li>
+<li>Your webapp requests a <code>portalLink</code> from your web server.</li>
+<li>Your web server hits the <code>/platform/investors/register</code> of the Check Investor Status API and returns the <code>portalLink</code> for the new investor.</li>
+<li>Your webapp uses the portalLink as the <code>href</code> in the rendered &quot;Verify Accreditation&quot; button.</li>
 </ol>
 
 <p>This may seem like a lot of steps, but it&#39;s necessary to have your server act as an intermediary so that your users don&#39;t need to create accounts on our platform.</p>
@@ -1307,7 +1312,7 @@ Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll
 <h2 id='1-your-user-opens-a-page-on-your-front-end-webapp'>1. Your user opens a page on your front-end webapp</h2>
 <p>This one is somewhat self-explanatory. This could be any page – a &quot;My Account&quot; page, an investment portal, etc. </p>
 
-<p>You can see an example of such a page at our live <a href="https://platformintegrationdemo.com/">platform integration demo</a>.</p>
+<p>You can see an example of such a page in step two of the <a href="https://platformintegrationdemo.com/">live demo</a>.</p>
 <h2 id='2-your-webapp-requests-a-portal-link-from-your-web-server'>2. Your webapp requests a portal-link from your web server</h2>
 <blockquote>
 <p>An example component requesting a portal-link to create a button</p>
@@ -1355,12 +1360,12 @@ Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll
 </code></pre></div>
 <p>You can do this however you generally have your front end and back end interact. In the example on the right, we use React Webhooks.</p>
 
-<p>In this example, your backend web server is located at <a href="#">https://yourservice.com</a></p>
+<p>In this example, your backend web server is located at <a href="#">https://yourservice.com</a>.</p>
 
 <p>Note also that your API is likely protected by some sort of authentication, but this is left out of the example for simplicity.</p>
-<h2 id='3-your-web-server-hits-the-platform-investors-register-endpoint-of-the-check-investor-status-api'>3. Your web server hits the <code>/platform/investors/register</code> endpoint of the Check Investor Status API</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="cm">/* api/portal-link.js (in yourservice.com) */</span>
+<h2 id='3-your-web-server-hits-the-platform-investors-register-endpoint-of-the-check-investor-status-api'>3. Your web server hits the <code>/platform/investors/register</code> endpoint of the Check Investor Status API</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="cm">/* api/portal-link.js (in webserver living at yourservice.com) */</span>
 
-<span class="kd">const</span> <span class="nx">fetch</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">node-fetch</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">axios</span><span class="dl">'</span><span class="p">).</span><span class="k">default</span>
 <span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">)</span>
 <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">express</span><span class="p">())</span>
 
@@ -1377,31 +1382,33 @@ Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll
   <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">getUserFromDatabase</span><span class="p">(</span><span class="nx">userId</span><span class="p">)</span>
 
   <span class="k">try</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span>
+    <span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span>
       <span class="s2">`https://check-investor-status.herokuapp.com/platform/investors/register`</span><span class="p">,</span>
+       <span class="c1">// Post Body</span>
       <span class="p">{</span>
-        <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Post</span><span class="dl">'</span><span class="p">,</span>
-        <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
-          <span class="c1">// Map your internal user data to CI</span>
-          <span class="c1">// parameters in the request body.</span>
-          <span class="nx">email</span><span class="p">,</span>
-          <span class="na">legalName</span><span class="p">:</span> <span class="nx">name</span><span class="p">,</span>
-          <span class="na">investorType</span><span class="p">:</span> <span class="nx">businessType</span><span class="p">,</span>
-          <span class="c1">// Optionally store the sponsor as metadata</span>
-          <span class="na">metadataTag</span><span class="p">:</span> <span class="nx">sponsor</span><span class="p">,</span>
-        <span class="p">},</span>
+        <span class="c1">// Map your internal user data to CI</span>
+        <span class="c1">// parameters in the request body.</span>
+        <span class="nx">email</span><span class="p">,</span>
+        <span class="na">legalName</span><span class="p">:</span> <span class="nx">name</span><span class="p">,</span>
+        <span class="na">investorType</span><span class="p">:</span> <span class="nx">businessType</span><span class="p">,</span>
+        <span class="c1">// Optionally store the sponsor as metadata</span>
+        <span class="na">metadataTag</span><span class="p">:</span> <span class="nx">sponsor</span><span class="p">,</span>
+      <span class="p">},</span>
+      <span class="c1">// Headers including authorization</span>
+      <span class="p">{</span>
         <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
           <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">,</span>
+          <span class="c1">// Your secret key lives in your environment variables</span>
           <span class="dl">'</span><span class="s1">X-API-ACCESS</span><span class="dl">'</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">CI_API_SECRET_KEY</span><span class="p">,</span>
         <span class="p">},</span>
-      <span class="p">}</span>
+      <span class="p">},</span>
     <span class="p">)</span>
     <span class="c1">// Deconstruct the response</span>
     <span class="kd">let</span> <span class="p">{</span>
       <span class="k">new</span><span class="p">,</span>  <span class="c1">// Whether investor was created (vs. found)</span>
       <span class="nx">investor</span><span class="p">,</span>  <span class="c1">// Investor model</span>
       <span class="nx">portalLink</span><span class="p">,</span>  <span class="c1">// What we care about</span>
-    <span class="p">}</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+    <span class="p">}</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span>
 
     <span class="c1">// Return portalLink the front end</span>
     <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span> <span class="nx">portalLink</span> <span class="p">})</span>
@@ -1444,20 +1451,9 @@ Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll
 
 <p>Now we can render that however we please – a link, and . If the user visits the <code>portalLink</code>, they will automatically be taken to Check Investor Status&#39; platform experience. They&#39;ll be logged in (no account creation) and their account information will be pre-filled (no information re-entry).</p>
 <h3 id='that-39-s-it'>That&#39;s it!</h3>
-<p>That alone is sufficient to provide your users with access to the entire check investor status platform.</p>
+<p>That alone is sufficient to provide your users with access to the entire Check Investor Status accreditation process.</p>
 
 <p>Other endpoints can be hit with a similar data flow. Using the other documented endpoints, you can do everything from checking the verification status for a user to building dashboards for sponsors.</p>
-<h1 id='documentation-todos'>Documentation TODOs</h1>
-<ul>
-<li>Workflows visualization / development stories</li>
-<li>Sample repo with examples</li>
-<li>More examples
-
-<ul>
-<li>Building a sponsor dashboard</li>
-<li>Working with events / webhooks</li>
-</ul></li>
-</ul>
 
       </div>
       <div class="dark-box">
