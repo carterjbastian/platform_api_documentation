@@ -11,6 +11,29 @@
 
 <p align="center"><em>The example above was created with Slate. Check it out at <a href="https://slatedocs.github.io/slate">slatedocs.github.io/slate</a>.</em></p>
 
+Carter Instructions
+------------
+
+To Serve:
+
+```
+docker run --rm --name slate -p 4567:4567 -v $(pwd)/source:/srv/slate/source slatedocs/slate serve
+```
+
+To Build:
+
+```
+docker run --rm --name slate -v $(pwd)/build:/srv/slate/build -v $(pwd)/source:/srv/slate/source slatedocs/slate build
+```
+
+To Deploy:
+Just copy the static build files into `/public/docs` of the front-end where you're hosting this.
+
+```
+cp -r build/ ../my-investment-platform/public/docs
+``` 
+
+
 Features
 ------------
 

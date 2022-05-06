@@ -2,8 +2,8 @@
 title: Platforms API Reference
 
 toc_footers:
-  - <a href=''>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
+  - <a href='mailto:carter@checkinvestorstatus.com'>Request a Developer Key</a>
+  - <a href='https://www.platformintegrationdemo.com/'>Live, Interactive Integration Demo</a>
 
 search: true
 
@@ -821,17 +821,22 @@ By default, we will return the first page, using a default value of 50 results p
 
 We can put this all together in a comprehensive example by demonstrating how we could provide a user on your platform with a button that links them to their user portal.
 
-Let's assume that in your database, you have an account model that looks as formatted in the snippet on the right.
+**You can see this code in action:**
 
+- This example lives in a live, interactive demo at [PlatformIntegrationDemo.com](https://www.platformintegrationdemo.com/). 
+- The front-end code we write in this example lives at [this public repo](https://github.com/carterjbastian/my-investment-platform)
+- The back-end code we write in this example lives at [this public repo](https://github.com/carterjbastian/my-investment-platform-api)
 
-In this example, we'll assume you have a react-based web application and a node express API, but this general approach can be taken regardless of platform, language, or infrastructure.
+For this example, let's assume that your platform is named **MyInvestmentPlatform**. In your database, you have an account model that looks as formatted in the snippet on the right.
+
+We'll be implementing your user-facing front-end in as a react-based web application, and we'll be implementing your web server as endpoints in a node/express API. However, this general approach and structure can be taken regardless of platform, language, or infrastructure.
 
 ### The overall information flow is as follows:
 
 1. Your user opens a page on your front end webapp 
-2. Your webapp requests a portal-id from your web server
-3. Your web server hits the `/platform/investors/register` of the Check Investor Status API and returns the platform portalLink
-4. Your webapp uses the portal-link as the `href` in the rendered button.
+2. Your webapp requests a `portalLink` from your web server.
+3. Your web server hits the `/platform/investors/register` of the Check Investor Status API and returns the `portalLink` for the new investor.
+4. Your webapp uses the portalLink as the `href` in the rendered "Verify Accreditation" button.
 
 This may seem like a lot of steps, but it's necessary to have your server act as an intermediary so that your users don't need to create accounts on our platform.
 
@@ -841,7 +846,7 @@ Let's break down each step and provide code snippets.
 
 This one is somewhat self-explanatory. This could be any page – a "My Account" page, an investment portal, etc. 
 
-You can see an example of such a page at our live [platform integration demo](https://platformintegrationdemo.com/).
+You can see an example of such a page in step two of the [live demo](https://platformintegrationdemo.com/).
 
 ## 2. Your webapp requests a portal-link from your web server
 
@@ -893,7 +898,7 @@ async function getPortalLinkFromAPI(userId) {
 
 You can do this however you generally have your front end and back end interact. In the example on the right, we use React Webhooks.
 
-In this example, your backend web server is located at [https://yourservice.com]()
+In this example, your backend web server is located at [https://yourservice.com]().
 
 Note also that your API is likely protected by some sort of authentication, but this is left out of the example for simplicity.
 
@@ -901,9 +906,9 @@ Note also that your API is likely protected by some sort of authentication, but 
 ## 3. Your web server hits the `/platform/investors/register` endpoint of the Check Investor Status API
 
 ```javascript
-/* api/portal-link.js (in yourservice.com) */
+/* api/portal-link.js (in webserver living at yourservice.com) */
 
-const fetch = require('node-fetch')
+const axios = require('axios').default
 const express = require('express')
 const app = (module.exports = express())
 
@@ -920,31 +925,33 @@ app.get('/api/portal-link/:userId', async (req, res) => {
   } = await getUserFromDatabase(userId)
   
   try {
-	let response = await fetch(
+	let response = await axios.post(
 	  `https://check-investor-status.herokuapp.com/platform/investors/register`,
-	  {
-        method: 'Post',
-        body: {
-          // Map your internal user data to CI
-          // parameters in the request body.
-	      email,
-	      legalName: name,
-	      investorType: businessType,
-	      // Optionally store the sponsor as metadata
-	      metadataTag: sponsor,
-        },
+	   // Post Body
+      {
+        // Map your internal user data to CI
+        // parameters in the request body.
+        email,
+        legalName: name,
+        investorType: businessType,
+        // Optionally store the sponsor as metadata
+        metadataTag: sponsor,
+      },
+      // Headers including authorization
+      {
         headers: {
           'Content-Type': 'application/json',
+          // Your secret key lives in your environment variables
           'X-API-ACCESS': process.env.CI_API_SECRET_KEY,
         },
-      }
+      },
     )
     // Deconstruct the response
     let {
       new,  // Whether investor was created (vs. found)
       investor,  // Investor model
       portalLink,  // What we care about
-    } = response.json()
+    } = response.data
 
     // Return portalLink the front end
     return res.send({ portalLink })
@@ -997,18 +1004,8 @@ Now we can render that however we please – a link, and . If the user visits th
 
 ### That's it!
 
-That alone is sufficient to provide your users with access to the entire check investor status platform.
+That alone is sufficient to provide your users with access to the entire Check Investor Status accreditation process.
 
 Other endpoints can be hit with a similar data flow. Using the other documented endpoints, you can do everything from checking the verification status for a user to building dashboards for sponsors.
-
-
-# Documentation TODOs
-
-- Workflows visualization / development stories
-- Sample repo with examples
-- More examples
-	- Building a sponsor dashboard
-	- Working with events / webhooks
-
 
 
