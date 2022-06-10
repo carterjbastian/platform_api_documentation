@@ -364,15 +364,21 @@ The date this accreditation expires, and can no longer be used to verify the acc
 
 This represents an accreditation event that has occurred. We log all events, and deliver them to you via a webhook that you can configure. Generally, we send events when either:
 
-1.  A billable event occurs, or 
-2.  An accreditation process is completed (successfully or otherwise)
+1.  An investor's status changes,
+2.  A billable event occurs, or 
+3.  An accreditation process is completed (successfully or otherwise)
 
 
-The 3 types of events you may receive are:
+The types of events you may receive are:
 
 Type | Description
 --------- | -----------
-`BILLABLE_EVENT` | an investor's accreditation application has been completed and sent to legal review
+`INVESTOR_REGISTERED` | an investor account has been registered with our platform
+`INVESTOR_STARTED` | an investor has begun their accreditation process (fires when the investor selects their accreditation method)
+`SENT_TO_REVIEW` | an investor accreditation application has been sent to legal review (either initially or after having more information requested)
+`MORE_INFO_REQUESTED` | our legal team has requested followup info from an investor who submitted their application
+`BILLABLE_EVENT_FULL_REVIEW` | an investor's accreditation application has been completed and sent to legal review
+`BILLABLE_EVENT_LETTER_VERIFICATION` | an investor's existing accreditation letter has been sent to our team to be processed and verified
 `ACCREDITATION_SUCCEEDED` | an investor's accreditation application was approved, and an accreditation letter was issued
 `ACCREDITATION_FAILED` | an investor's accreditation application was denied or expired due to inactivity
 
@@ -380,7 +386,7 @@ To set up your webhook receiver, use the `platform/admin/update-webhook-url` end
 
 We currently do not retry delivery on webhook events that are not delivered successfully, but you can retroactively pull a list of your events from the last month with the `platform/events/query` endpoint (documented below).
 
-
+Note that we use the `BILLABLE_EVENT_*` events to generate your monthly invoice. You can use these events to track or compute what your bill will be.
 
 # API Endpoints
 
