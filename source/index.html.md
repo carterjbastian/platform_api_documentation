@@ -74,6 +74,10 @@ Check Investor Status is not liable for unauthorized access to the platform via 
 
 # The Investor Portal
 
+<aside class="success">
+Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll be supporting a "Pure-API" solution that will let you handle the information intake without using our portal UX. Reach out to support with any questions or to be included in the beta for that workflow.
+</aside>
+
 We have a platform-specific User Experience built out that streamlines the process of investors uploading their documentation.
 
 We dynamically generate secure links for investors to access their investor portals. These "portal links" allow you to provide your investors persistent access to their portal, without having them create accounts with Check Investor Status.
@@ -82,10 +86,31 @@ Note that, for security purposes, "portal Links" are expired and regenerated eve
 
 It is not recommended to store a portal link in persistent storage (EG on your database). Instead, we highly recommend storing the investor's `investorId` on your database's representation of your user. With this, you can dynamically request a new portal link for the user when rendering the "Get Accredited" button.
 
-<aside class="success">
-Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll be supporting a "Pure-API" solution that will let you handle the information intake without using our portal UX. Reach out to support with any questions or to be included in the beta for that workflow.
-</aside>
+## Return URLs
 
+> Example adding returnUrl to portalLink
+
+```jsx
+// Assume we have portalLink available in scope already
+// Encode the URL with JS builtin to make URL-safe
+let urlSafeReturnURL = encodeURIComponent(
+	'https://yourwebsite.com/some/investor/page?param=userCode'
+);
+// Updated link that will have users return to our site
+let portalLinkWithReturn = `${portalLink}?returnUrl=${urlSafeReturnURL}`
+```
+
+Please note that you can attach a URL-encoded return url to any portal link. If you do this, then when the investor completes their process, they will be taken back to the return url you provide.
+
+For example, let's say you fetch the portal link `https://checkinvestorstatus.com/platform/portal/42cce186ac4c6037a3a7815a26686ad3` from the API for your investor.
+
+When your investor clicks that link, they'll be taken to their personalized investor portal. However, should they complete the accreditation process, you could have them redirect to your website (say `https://yourwebsite.com/some/investor/page?param=userCode`).
+
+To do this, you'd URL-encode your return URL, and append it to the portal link as the URL search parameter `returnUrl`.
+
+So your updated portal link would be `https://checkinvestorstatus.com/platform/portal/42cce186ac4c6037a3a7815a26686ad3?returnUrl=https%3A%2F%2Fyourwebsite.com%2Fsome%2Finvestor%2Fpage%3Fparam%3DuserCode`
+
+If you do not pass a return URL, instead of being directed back to another place, the investor will be instructed that they can now safely exit the tab.
 
 # Data Models 
 
@@ -105,9 +130,6 @@ Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll
 	investorType: <entity type for the investor>,
 	verificationMethod: <selected verification method (see below)>,
 	metadataTag: <optional platform-supplied metadata for the investor>,
-	dependentOnInvestors: [
-		<investorId of an investor whose accreditation impacts this investor's>
-	],
 
 	// Status and Accreditation information
 	status: <a status object for this user (see below)>,
@@ -165,6 +187,7 @@ Value | Description
 --------- | -----------
 `INDIVIDUAL` | a natural person investing as themself
 `JOINT` | a married couple or spousal equivalent investing together
+`EBP` | an employee benefit plan (retirement plan such as a 401k, IRA, etc.)
 `ENTITY` | a business entity (EG an LLC) investing as a legal person
 `TRUST` | a trust investing as a legal person
 
@@ -187,12 +210,13 @@ Value | Description
 `JOINT_INCOME` | Spousal couple qualified by annual income
 `JOINT_NET_WORTH` | Spousal couple qualified by net worth
 `JOINT_NONE_OF_THE_ABOVE` | Spousal couple qualified by extenuating circumstance
+`EBP_NET_WORTH` | Retirement plan qualified by having assets in excess of $5,000,000 of value
+`EBP_SELF_DIRECTED` | Retirement plan self-directed by one or more accredited individuals
+`EBP_FIDUCIARY` | Retirement plan directed by a qualified plan fiduciary
 `ENTITY_LETTER` | Entity qualified by letter from qualified professional
 `ENTITY_NET_WORTH` | Entity qualified by assets under management
 `ENTITY_STATUS` | Entity qualified by special regulatory status
 `ENTITY_SPECIAL` | Entity qualified by combination of status and assets under management
-`ENTITY_FIDUCIARY_EBP` | Entity qualified as fiduciary-led employee benefit program
-`ENTITY_SELF_DIRECTED_EBP` | Entity qualified as self-directed Employee Benefit Plan
 `ENTITY_ACCREDITED_INDIVIDUALS` | Entity qualified as composed of solely accredited equity owners
 `ENTITY_NONE_OF_THE_ABOVE` | Entity qualified by extenuating circumstances
 `TRUST_LETTER` | Trust qualified by letter from qualified professional
@@ -208,11 +232,6 @@ The most common use case is storing a sponsor identifier, so that you can track 
 
 This field is managed entirely by the platform – we provide you with the ability to set and update this field, but its use and management is up to you.
 
-**`dependentOnInvestors`**
-
-This is an array of  `investorId`s for investors whose accreditations this investor (AKA the parent investor) is waiting on. 
-
-For example, if this investor is an entity or trust who is accredited by nature of each of their entity owners being accredited, this list would have the investorIds of each of the investors being waited on.
 
 ## Status Model
 
@@ -397,6 +416,7 @@ email | true | a valid email address of an investor in your platform
 legalName | false | a string containing the exact legal name of the investor in your platform
 investorType | false | an `investorType` value representing the type of entity the investor will be investing as. Valid values are `INDIVIDUAL`, `JOINT`, `ENTITY`, and `TRUST`
 metadataTag | false | any string value you want to store as metadata on the user (EG – the id of their sponsor). This value is always returned with the user, and is passed along with billing events
+equityOwners | false | an array of objects representing the equity owners for this entity, trust, or EBP. If you know this equity-owner information up front, you can use this field so that your investor doesn't have to re-enter the information themselves. The format of an equityOwner is `{ email, legalName, investorType, isSigningInvestor }` – where the first three fields are the same as described above, and the `isSigningInvestor` field is a boolean set to `true` if that equity owner represents the same person who is filling out the accreditation on behalf of the entity.
 
 ### Returns
 
@@ -431,6 +451,29 @@ If there is already a user matching the parameters provided, this endpoint will 
 	"email": joesmith@gmail.com",
 	"investorType": "ENTITY",
 	"legalName": "New Investment Company, Inc." 
+}
+```
+
+> POST body for an entity with two equity owners. Note that this is registering for an entity – Jackson Investments. In this case, you know that the entity has two accredited owners – Jackson Smith and Jessica Ramirez. You can pre-fill the entity owner information so that the signer – Jackson in this case – doesn't have to reenter it as evidence during the entity's accreditation process.
+
+```json
+{
+	"email": jackson.investments@gmail.com",
+	"investorType": "ENTITY",
+	"legalName": "Jackson Investments, Inc.", 
+	"equityOwners": [
+		{
+			"email": "jackson.investments@gmail.com",
+			"investorType": "INDIVIDUAL",
+			"legalName": "Jackson Smith",
+			"isSigningInvestor" true
+		},
+		{
+			"email": "jessicaramirez@gmail.com",
+			"investorType": "INDIVIDUAL",
+			"legalName": "Jessica Ramirez"
+		}
+	]
 }
 ```
 
