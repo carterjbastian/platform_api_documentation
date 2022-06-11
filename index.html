@@ -325,6 +325,11 @@
           </li>
           <li>
             <a href="#the-investor-portal" class="toc-h1 toc-link" data-title="The Investor Portal">The Investor Portal</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#return-urls" class="toc-h2 toc-link" data-title="Return URLs">Return URLs</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#data-models" class="toc-h1 toc-link" data-title="Data Models">Data Models</a>
@@ -449,6 +454,10 @@ You should never include your secret key in plaintext as code. For this reason, 
 Check Investor Status is not liable for unauthorized access to the platform via your secret key.
 </aside>
 <h1 id='the-investor-portal'>The Investor Portal</h1>
+<aside class="success">
+Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll be supporting a "Pure-API" solution that will let you handle the information intake without using our portal UX. Reach out to support with any questions or to be included in the beta for that workflow.
+</aside>
+
 <p>We have a platform-specific User Experience built out that streamlines the process of investors uploading their documentation.</p>
 
 <p>We dynamically generate secure links for investors to access their investor portals. These &quot;portal links&quot; allow you to provide your investors persistent access to their portal, without having them create accounts with Check Investor Status.</p>
@@ -456,10 +465,29 @@ Check Investor Status is not liable for unauthorized access to the platform via 
 <p>Note that, for security purposes, &quot;portal Links&quot; are expired and regenerated every time you look up a an investor with our API. </p>
 
 <p>It is not recommended to store a portal link in persistent storage (EG on your database). Instead, we highly recommend storing the investor&#39;s <code>investorId</code> on your database&#39;s representation of your user. With this, you can dynamically request a new portal link for the user when rendering the &quot;Get Accredited&quot; button.</p>
+<h2 id='return-urls'>Return URLs</h2>
+<blockquote>
+<p>Example adding returnUrl to portalLink</p>
+</blockquote>
+<div class="highlight"><pre class="highlight jsx tab-jsx"><code><span class="c1">// Assume we have portalLink available in scope already</span>
+<span class="c1">// Encode the URL with JS builtin to make URL-safe</span>
+<span class="kd">let</span> <span class="nx">urlSafeReturnURL</span> <span class="o">=</span> <span class="nb">encodeURIComponent</span><span class="p">(</span>
+    <span class="dl">'</span><span class="s1">https://yourwebsite.com/some/investor/page?param=userCode</span><span class="dl">'</span>
+<span class="p">);</span>
+<span class="c1">// Updated link that will have users return to our site</span>
+<span class="kd">let</span> <span class="nx">portalLinkWithReturn</span> <span class="o">=</span> <span class="s2">`</span><span class="p">${</span><span class="nx">portalLink</span><span class="p">}</span><span class="s2">?returnUrl=</span><span class="p">${</span><span class="nx">urlSafeReturnURL</span><span class="p">}</span><span class="s2">`</span>
+</code></pre></div>
+<p>Please note that you can attach a URL-encoded return url to any portal link. If you do this, then when the investor completes their process, they will be taken back to the return url you provide.</p>
 
-<aside class="success">
-Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll be supporting a "Pure-API" solution that will let you handle the information intake without using our portal UX. Reach out to support with any questions or to be included in the beta for that workflow.
-</aside>
+<p>For example, let&#39;s say you fetch the portal link <code>https://checkinvestorstatus.com/platform/portal/42cce186ac4c6037a3a7815a26686ad3</code> from the API for your investor.</p>
+
+<p>When your investor clicks that link, they&#39;ll be taken to their personalized investor portal. However, should they complete the accreditation process, you could have them redirect to your website (say <code>https://yourwebsite.com/some/investor/page?param=userCode</code>).</p>
+
+<p>To do this, you&#39;d URL-encode your return URL, and append it to the portal link as the URL search parameter <code>returnUrl</code>.</p>
+
+<p>So your updated portal link would be <code>https://checkinvestorstatus.com/platform/portal/42cce186ac4c6037a3a7815a26686ad3?returnUrl=https%3A%2F%2Fyourwebsite.com%2Fsome%2Finvestor%2Fpage%3Fparam%3DuserCode</code></p>
+
+<p>If you do not pass a return URL, instead of being directed back to another place, the investor will be instructed that they can now safely exit the tab.</p>
 <h1 id='data-models'>Data Models</h1><h2 id='investor-model'>Investor Model</h2>
 <blockquote>
 <p>Format of the user model</p>
@@ -475,9 +503,6 @@ Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll
     </span><span class="na">investorType</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;entity</span><span class="w"> </span><span class="err">type</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">investor&gt;</span><span class="p">,</span><span class="w">
     </span><span class="na">verificationMethod</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;selected</span><span class="w"> </span><span class="err">verification</span><span class="w"> </span><span class="err">method</span><span class="w"> </span><span class="err">(see</span><span class="w"> </span><span class="err">below)&gt;</span><span class="p">,</span><span class="w">
     </span><span class="na">metadataTag</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;optional</span><span class="w"> </span><span class="err">platform-supplied</span><span class="w"> </span><span class="err">metadata</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">investor&gt;</span><span class="p">,</span><span class="w">
-    </span><span class="na">dependentOnInvestors</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="err">&lt;investorId</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">an</span><span class="w"> </span><span class="err">investor</span><span class="w"> </span><span class="err">whose</span><span class="w"> </span><span class="err">accreditation</span><span class="w"> </span><span class="err">impacts</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">investor's&gt;</span><span class="w">
-    </span><span class="p">],</span><span class="w">
 
     </span><span class="c1">// Status and Accreditation information</span><span class="w">
     </span><span class="na">status</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;a</span><span class="w"> </span><span class="err">status</span><span class="w"> </span><span class="err">object</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">user</span><span class="w"> </span><span class="err">(see</span><span class="w"> </span><span class="err">below)&gt;</span><span class="p">,</span><span class="w">
@@ -538,6 +563,10 @@ Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll
 <tr>
 <td><code>JOINT</code></td>
 <td>a married couple or spousal equivalent investing together</td>
+</tr>
+<tr>
+<td><code>EBP</code></td>
+<td>an employee benefit plan (retirement plan such as a 401k, IRA, etc.)</td>
 </tr>
 <tr>
 <td><code>ENTITY</code></td>
@@ -606,6 +635,18 @@ Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll
 <td>Spousal couple qualified by extenuating circumstance</td>
 </tr>
 <tr>
+<td><code>EBP_NET_WORTH</code></td>
+<td>Retirement plan qualified by having assets in excess of $5,000,000 of value</td>
+</tr>
+<tr>
+<td><code>EBP_SELF_DIRECTED</code></td>
+<td>Retirement plan self-directed by one or more accredited individuals</td>
+</tr>
+<tr>
+<td><code>EBP_FIDUCIARY</code></td>
+<td>Retirement plan directed by a qualified plan fiduciary</td>
+</tr>
+<tr>
 <td><code>ENTITY_LETTER</code></td>
 <td>Entity qualified by letter from qualified professional</td>
 </tr>
@@ -620,14 +661,6 @@ Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll
 <tr>
 <td><code>ENTITY_SPECIAL</code></td>
 <td>Entity qualified by combination of status and assets under management</td>
-</tr>
-<tr>
-<td><code>ENTITY_FIDUCIARY_EBP</code></td>
-<td>Entity qualified as fiduciary-led employee benefit program</td>
-</tr>
-<tr>
-<td><code>ENTITY_SELF_DIRECTED_EBP</code></td>
-<td>Entity qualified as self-directed Employee Benefit Plan</td>
 </tr>
 <tr>
 <td><code>ENTITY_ACCREDITED_INDIVIDUALS</code></td>
@@ -662,12 +695,6 @@ Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll
 <p>The most common use case is storing a sponsor identifier, so that you can track which sponsors to bill for which events. For example, if an investor is clicks &quot;Get Accredited&quot; on the invest page for a particular investment, you may add an identifier for that investment or sponsor as the <code>metadataTag</code> for that user.</p>
 
 <p>This field is managed entirely by the platform – we provide you with the ability to set and update this field, but its use and management is up to you.</p>
-
-<p><strong><code>dependentOnInvestors</code></strong></p>
-
-<p>This is an array of  <code>investorId</code>s for investors whose accreditations this investor (AKA the parent investor) is waiting on. </p>
-
-<p>For example, if this investor is an entity or trust who is accredited by nature of each of their entity owners being accredited, this list would have the investorIds of each of the investors being waited on.</p>
 <h2 id='status-model'>Status Model</h2>
 <blockquote>
 <p>Format of the Status Model</p>
@@ -812,11 +839,12 @@ Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll
 <p>This represents an accreditation event that has occurred. We log all events, and deliver them to you via a webhook that you can configure. Generally, we send events when either:</p>
 
 <ol>
+<li> An investor&#39;s status changes,</li>
 <li> A billable event occurs, or </li>
 <li> An accreditation process is completed (successfully or otherwise)</li>
 </ol>
 
-<p>The 3 types of events you may receive are:</p>
+<p>The types of events you may receive are:</p>
 
 <table><thead>
 <tr>
@@ -825,8 +853,28 @@ Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll
 </tr>
 </thead><tbody>
 <tr>
-<td><code>BILLABLE_EVENT</code></td>
+<td><code>INVESTOR_REGISTERED</code></td>
+<td>an investor account has been registered with our platform</td>
+</tr>
+<tr>
+<td><code>INVESTOR_STARTED</code></td>
+<td>an investor has begun their accreditation process (fires when the investor selects their accreditation method)</td>
+</tr>
+<tr>
+<td><code>SENT_TO_REVIEW</code></td>
+<td>an investor accreditation application has been sent to legal review (either initially or after having more information requested)</td>
+</tr>
+<tr>
+<td><code>MORE_INFO_REQUESTED</code></td>
+<td>our legal team has requested followup info from an investor who submitted their application</td>
+</tr>
+<tr>
+<td><code>BILLABLE_EVENT_FULL_REVIEW</code></td>
 <td>an investor&#39;s accreditation application has been completed and sent to legal review</td>
+</tr>
+<tr>
+<td><code>BILLABLE_EVENT_LETTER_VERIFICATION</code></td>
+<td>an investor&#39;s existing accreditation letter has been sent to our team to be processed and verified</td>
 </tr>
 <tr>
 <td><code>ACCREDITATION_SUCCEEDED</code></td>
@@ -841,6 +889,8 @@ Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll
 <p>To set up your webhook receiver, use the <code>platform/admin/update-webhook-url</code> endpoint (documented below).</p>
 
 <p>We currently do not retry delivery on webhook events that are not delivered successfully, but you can retroactively pull a list of your events from the last month with the <code>platform/events/query</code> endpoint (documented below).</p>
+
+<p>Note that we use the <code>BILLABLE_EVENT_*</code> events to generate your monthly invoice. You can use these events to track or compute what your bill will be.</p>
 <h1 id='api-endpoints'>API Endpoints</h1>
 <p>We provide API access to read and modify your investors&#39; accreditation data programmatically.</p>
 
@@ -890,6 +940,11 @@ Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll
 <td>false</td>
 <td>any string value you want to store as metadata on the user (EG – the id of their sponsor). This value is always returned with the user, and is passed along with billing events</td>
 </tr>
+<tr>
+<td>equityOwners</td>
+<td>false</td>
+<td>an array of objects representing the equity owners for this entity, trust, or EBP. If you know this equity-owner information up front, you can use this field so that your investor doesn&#39;t have to re-enter the information themselves. The format of an equityOwner is <code>{ email, legalName, investorType, isSigningInvestor }</code> – where the first three fields are the same as described above, and the <code>isSigningInvestor</code> field is a boolean set to <code>true</code> if that equity owner represents the same person who is filling out the accreditation on behalf of the entity.</td>
+</tr>
 </tbody></table>
 <h3 id='returns'>Returns</h3>
 <blockquote>
@@ -919,6 +974,28 @@ Want to build your own accreditation portal? Starting in early Q3 of 2022, we'll
     </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="err">joesmith@gmail.com</span><span class="s2">",
     "</span><span class="err">investorType</span><span class="s2">": "</span><span class="err">ENTITY</span><span class="s2">",
     "</span><span class="err">legalName</span><span class="s2">": "</span><span class="err">New</span><span class="w"> </span><span class="err">Investment</span><span class="w"> </span><span class="err">Company</span><span class="p">,</span><span class="w"> </span><span class="err">Inc.</span><span class="s2">" 
+}
+</span></code></pre></div>
+<blockquote>
+<p>POST body for an entity with two equity owners. Note that this is registering for an entity – Jackson Investments. In this case, you know that the entity has two accredited owners – Jackson Smith and Jessica Ramirez. You can pre-fill the entity owner information so that the signer – Jackson in this case – doesn&#39;t have to reenter it as evidence during the entity&#39;s accreditation process.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="err">jackson.investments@gmail.com</span><span class="s2">",
+    "</span><span class="err">investorType</span><span class="s2">": "</span><span class="err">ENTITY</span><span class="s2">",
+    "</span><span class="err">legalName</span><span class="s2">": "</span><span class="err">Jackson</span><span class="w"> </span><span class="err">Investments</span><span class="p">,</span><span class="w"> </span><span class="err">Inc.</span><span class="s2">", 
+    "</span><span class="err">equityOwners</span><span class="s2">": [
+        {
+            "</span><span class="err">email</span><span class="s2">": "</span><span class="err">jackson.investments@gmail.com</span><span class="s2">",
+            "</span><span class="err">investorType</span><span class="s2">": "</span><span class="err">INDIVIDUAL</span><span class="s2">",
+            "</span><span class="err">legalName</span><span class="s2">": "</span><span class="err">Jackson</span><span class="w"> </span><span class="err">Smith</span><span class="s2">",
+            "</span><span class="err">isSigningInvestor</span><span class="s2">" true
+        },
+        {
+            "</span><span class="err">email</span><span class="s2">": "</span><span class="err">jessicaramirez@gmail.com</span><span class="s2">",
+            "</span><span class="err">investorType</span><span class="s2">": "</span><span class="err">INDIVIDUAL</span><span class="s2">",
+            "</span><span class="err">legalName</span><span class="s2">": "</span><span class="err">Jessica</span><span class="w"> </span><span class="err">Ramirez</span><span class="s2">"
+        }
+    ]
 }
 </span></code></pre></div>
 <p>Although we only require an email-address for the user, we recommend that you make your query as specific as possible.</p>
